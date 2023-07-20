@@ -6,11 +6,13 @@
   "license": "MIT",
   "scripts": {
     "precommit": "lint-staged",
-    "eslint": "eslint"
+    "eslint": "eslint",
+    "test:staged":"jest"
   },
   "lint-staged": {
     "*.{js,ts}": [
-      "eslint  --fix"
+      "eslint  --fix",
+      "yarn test:staged"
     ]
   },
   "devDependencies": {
