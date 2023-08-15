@@ -2,9 +2,11 @@ import { type HttpPostParams, type HttpPostClient } from '@data/protocols/http/h
 
 export class HttpPostClientSpy implements HttpPostClient {
   url?: string;
+  body?: object;
 
-  async post ({ url }: HttpPostParams): Promise<void> {
+  async post ({ url, body }: HttpPostParams): Promise<void> {
     this.url = url;
+    this.body = body;
     await Promise.resolve();
   }
 }
