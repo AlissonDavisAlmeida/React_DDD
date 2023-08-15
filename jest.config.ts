@@ -9,14 +9,33 @@ const config: Config = {
     '<rootDir>/src/**/*.{ts, tsx}'
   ],
   coverageDirectory: 'coverage',
+  coveragePathIgnorePatterns: [
+    "/node_modules/",
+    "/dist/",
+  ],
   testEnvironment: 'node',
   transform: {
-    '^.+\\.ts$': 'ts-jest'
+    '^.+\\.ts$': '@swc/jest'
   },
+  transformIgnorePatterns: [
+    '/node_modules/'
+  ],
+  testPathIgnorePatterns: [
+    "/node_modules/",
+    "/dist/"
+  ],
   moduleNameMapper: {
-    '@data/(.*)': '<rootDir>/src/data/$1',
-    '@domain/(.*)': '<rootDir>/src/domain/$1',
-  }
+    '@/(.*)': '<rootDir>/src/$1',
+  },
+  testRegex: [
+    ".*\\..*test\\.ts?$",
+    ".*\\..*spec\\.ts?$",
+  ],
+  watchPathIgnorePatterns: [
+    "/node_modules/",
+    "/dist/"
+  ],
+  
 };
 
 export default config;
