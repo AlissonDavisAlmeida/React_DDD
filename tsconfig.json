@@ -23,6 +23,7 @@
         "noEmit": true,
         "paths": {
             "@data/*": ["data/*"],
+            "@domain/*": ["domain/*"],
         }
     },
     "include": [
