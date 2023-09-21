@@ -10,9 +10,9 @@ export enum HttpStatusCode {
   serverError = 500
 }
 
-export interface HttpResponse {
+export interface HttpResponse<BodyResponse = any> {
   statusCode: HttpStatusCode
-  body?: any
+  body?: BodyResponse
 }
 
 export const MapHttpStatusToDomainError = new Map<HttpStatusCode, () => Error>([
