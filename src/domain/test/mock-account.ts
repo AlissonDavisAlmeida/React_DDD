@@ -1,7 +1,7 @@
-import { type AuthenticationParams } from '@/domain/usecases/authentication';
-import { type AccountModel } from '../models/account.model';
-import { randomUUID } from 'crypto';
+import { type AuthenticationParams } from '@/domain/usecases';
 import { faker } from '@faker-js/faker/locale/pt_BR';
+import { randomUUID } from 'crypto';
+import { type AccountModel } from '../models';
 
 export const mockAuthentication = (): AuthenticationParams => {
   return {
