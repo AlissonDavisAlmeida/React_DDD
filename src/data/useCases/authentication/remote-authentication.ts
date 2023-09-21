@@ -1,9 +1,9 @@
 import { type HttpPostClient } from '@/data/protocols/http/http-post-client';
 import { MapHttpStatusToDomainError } from '@/data/protocols/http/http-response';
 import { type AccountModel } from '@/domain/models/account.model';
-import { type AuthenticationParams } from '@/domain/usecases/authentication';
+import { type Authentication, type AuthenticationParams } from '@/domain/usecases/authentication';
 
-export class RemoteAuthentication {
+export class RemoteAuthentication implements Authentication {
   constructor (
     private readonly url: string,
     private readonly httpPostClient: HttpPostClient<AuthenticationParams, AccountModel>
