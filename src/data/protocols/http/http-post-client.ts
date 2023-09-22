@@ -2,7 +2,7 @@ import { type HttpResponse } from './';
 
 export interface HttpPostParams<BodyRequest> {
   url: string
-  body: BodyRequest
+  body?: BodyRequest
 }
 
 export interface HttpPostClient<BodyRequest, BodyResponse> {
