@@ -18,7 +18,7 @@ const makeSut = (): MakeSut => {
 };
 
 describe('Axios Http Client', () => {
-  test('should call axios with correct url', async () => {
+  test('should call axios with correct url and verb post', async () => {
     const url = faker.internet.url();
     const { sut } = makeSut();
     await sut.post({ url, body: {} });
