@@ -1,19 +1,36 @@
 {
     "overrides": [
         {
-            "files": ["*.ts", "*.tsx"],
+            "settings": {
+                "react": {
+                    "version": "detect"
+                }
+            },
+            "files": [
+                "*.ts",
+                "*.tsx"
+            ],
+            "plugins": [
+                "react"
+            ],
             "parserOptions": {
                 "project": "./tsconfig.json"
             },
-            "extends": "standard-with-typescript",
-            "rules":{
+            "extends": [
+                "standard-with-typescript",
+                "plugin:react/recommended"
+            ],
+            "rules": {
                 "@typescript-eslint/no-unused-vars": "warn",
                 "@typescript-eslint/semi": "off",
                 "@typescript-eslint/explicit-function-return-type": "off",
                 "@typescript-eslint/strict-boolean-expressions": "off",
-                "semi": ["warn", "always"]
+                "semi": [
+                    "warn",
+                    "always"
+                ]
+                
             }
-
         }
     ]
 }

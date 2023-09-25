@@ -13,9 +13,9 @@ const config: Config = {
     "/node_modules/",
     "/dist/",
   ],
-  testEnvironment: 'node',
+  testEnvironment: 'jsdom',
   transform: {
-    '^.+\\.ts$': '@swc/jest'
+    '^.+\\.(ts|tsx)$': '@swc/jest'
   },
   transformIgnorePatterns: [
     '/node_modules/'
