@@ -6,7 +6,8 @@ const config: Config = {
     '<rootDir>/src'
   ],
   collectCoverageFrom: [
-    '<rootDir>/src/**/*.{ts, tsx}'
+    '<rootDir>/src/**/*.{ts, tsx}',
+    "!**/*.d.ts",
   ],
   coverageDirectory: 'coverage',
   coveragePathIgnorePatterns: [
@@ -26,6 +27,7 @@ const config: Config = {
   ],
   moduleNameMapper: {
     '@/(.*)': '<rootDir>/src/$1',
+    '\\.scss$': 'identity-obj-proxy',
   },
   testRegex: [
     ".*\\..*test\\.ts?$",

@@ -12,10 +12,28 @@ const config: webpack.Configuration = {
         publicPath: "/public/js/",
     },
     resolve: {
-        extensions: [".ts", ".tsx", ".js"],
+        extensions: [".ts", ".tsx", ".js", ".scss"],
         alias: {
             "@": path.resolve(__dirname, "src"),
         },
+    },
+    module: {
+        rules: [
+            {
+                test: /\.tsx?$/,
+                use: "ts-loader",
+                exclude: /node_modules/,
+            },
+            {
+                test: /\.scss$/,
+                use: ["style-loader", {
+                    loader: "css-loader",
+                    options: {
+                        modules: true
+                    }
+                }, "sass-loader"],
+            }
+        ]
     },
     devServer: {
         static: {
