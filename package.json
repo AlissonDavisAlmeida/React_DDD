@@ -7,10 +7,12 @@
   "scripts": {
     "precommit": "lint-staged",
     "eslint": "eslint",
-    "test": "jest --passWithNoTests",
+    "test": "jest --passWithNoTests --no-cache --runInBand",
     "test:staged": "jest --findRelatedTests --passWithNoTests",
     "test:watch": "yarn test --watchAll --maxWorkers=50%  ",
-    "test:ci": "yarn test --coverage"
+    "test:ci": "yarn test --coverage",
+    "webpack:build": "webpack --mode production",
+    "webpack:dev": "webpack serve --mode development --open"
   },
   "lint-staged": {
     "*.{js,ts}": [
@@ -26,7 +28,10 @@
     "@types/node": "^20.4.2",
     "@types/react": "^18.2.22",
     "@types/react-dom": "^18.2.7",
+    "@types/webpack": "^5.28.3",
+    "@types/webpack-dev-server": "^4.7.2",
     "@typescript-eslint/eslint-plugin": "5.62.0",
+    "clean-webpack-plugin": "^4.0.0",
     "eslint": "^8.45.0",
     "eslint-config-standard-with-typescript": "^36.1.0",
     "eslint-plugin-import": "^2.27.5",

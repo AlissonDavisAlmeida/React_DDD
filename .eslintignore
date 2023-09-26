@@ -2,3 +2,4 @@ dist
 node_modules
 jest.config.ts
 public
+webpack.config.ts
