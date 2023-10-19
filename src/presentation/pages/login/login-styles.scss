@@ -1,0 +1,138 @@
+@import "../../styles/colors.scss";
+
+html {
+    font-family: "Roboto", sans-serif;
+    font-size: 10px;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: $background;
+    margin: 0;
+    padding: 0;
+}
+
+input[type="password"],
+input[type="email"] {
+    border: 0.1rem solid $primary-color-light;
+    line-height: 4rem;
+    border-radius: 0.4rem;
+    padding: 0 4rem 0 0.8rem;
+
+    &:focus {
+        outline-color: $primary-color-light;
+    }
+}
+
+button {
+    background-color: $primary-color;
+    color: $white;
+    border-radius: 0.8rem;
+    font-size: 1.6rem;
+    line-height: 6rem;
+    border: none;
+
+    &:hover {
+        opacity: 0.9;
+    }
+}
+
+.login {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    height: 100vh;
+
+    .header {
+        background-color: $primary-color;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border-top: 4rem solid $primary-color-dark;
+
+        img {
+            margin-top: 4rem;
+        }
+
+        h1: {
+            font-size: 3.6rem;
+            color: $white;
+            margin-top: 1.6rem 0 4rem;
+        }
+    }
+
+    .form {
+        display: flex;
+        flex-direction: column;
+        align-self: center;
+        width: 40rem;
+        background-color: $white;
+        padding: 4rem;
+        border-radius: 0.8rem;
+        box-shadow: 0 0.1rem 0.3rem -0.1rem $black;
+
+        h2 {
+            color: $primary-color-dark;
+            text-align: center;
+            font-size: 2rem;
+            text-transform: uppercase;
+        }
+
+        .inputWrap {
+            margin-top: 1.6rem;
+            display: flex;
+            align-items: center;
+            position: relative;
+
+            input {
+                flex: 1;
+            }
+
+            .status {
+                position: absolute;
+                right: 0.8rem;
+                font-size: 1.6rem;
+                cursor: help;
+            }
+        }
+
+        .submit {
+            margin-top: 3.2rem;
+        }
+
+        .link {
+            margin-top: 1.6rem;
+            text-align: center;
+            color: $primary-color;
+            font-size: 1.6rem;
+            text-decoration: none;
+            text-transform: lowercase;
+            cursor: pointer;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        .errorWrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            .spinner {
+                margin-top: 3rem;
+            }
+
+            .error {
+                margin-top: 3rem;
+                color: $primary-color-light;
+            }
+        }
+    }
+
+    .footer {
+        background-color: $primary-color;
+        height: 4.8rem;
+    }
+}

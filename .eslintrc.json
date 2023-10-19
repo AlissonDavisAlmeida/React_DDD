@@ -35,11 +35,13 @@
                 "react/jsx-indent-props": ["warn", "tab"],
                 "react/jsx-max-props-per-line": ["warn", { "maximum": 1 }],
                 "react/jsx-first-prop-new-line": "warn",
-                "react/jsx-closing-bracket-location": ["warn", "tag-aligned"],
+                "react/jsx-closing-bracket-location": ["warn", {"nonEmpty": "tag-aligned", "selfClosing": "tag-aligned"}],
                 "react/jsx-newline": "warn",
                 "react/jsx-no-duplicate-props": "warn",
                 "react/jsx-props-no-multi-spaces": "warn",
-                "react/jsx-one-expression-per-line": ["warn", {"allow": "single-child"}]
+                "react/jsx-one-expression-per-line": ["warn", {"allow": "single-child"}],
+                // if tag is empty must be auto closing
+                "react/self-closing-comp": ["warn", {"component": true, "html": true}]
             }
         }
     ]
