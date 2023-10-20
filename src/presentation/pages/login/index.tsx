@@ -1,16 +1,13 @@
 import { type FC } from 'react';
 import styles from './login-styles.scss';
-import { logoImageBase64 } from '@/utils/constants';
 import { Spinner } from '@/presentation/components/spinner';
+import { LogoTip } from '@/presentation/components/logo';
 
 export const Login: FC = () => {
   return (
 	<div className={styles.login}>
 		<header className={styles.header}>
-			<img
-				src={logoImageBase64}
-				alt=""
-			/>
+			<LogoTip />
 
 			<h1>4Dev - Enquetes para programadores</h1>
 		</header>
