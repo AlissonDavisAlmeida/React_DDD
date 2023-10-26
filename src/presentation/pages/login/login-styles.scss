@@ -46,24 +46,6 @@ button {
 
     height: 100vh;
 
-    // .header {
-    //     background-color: $primary-color;
-    //     display: flex;
-    //     flex-direction: column;
-    //     align-items: center;
-    //     border-top: 4rem solid $primary-color-dark;
-
-    //     img {
-    //         margin-top: 4rem;
-    //     }
-
-    //     h1: {
-    //         font-size: 3.6rem;
-    //         color: $white;
-    //         margin-top: 1.6rem 0 4rem;
-    //     }
-    // }
-
     .form {
         display: flex;
         flex-direction: column;
@@ -79,24 +61,6 @@ button {
             text-align: center;
             font-size: 2rem;
             text-transform: uppercase;
-        }
-
-        .inputWrap {
-            margin-top: 1.6rem;
-            display: flex;
-            align-items: center;
-            position: relative;
-
-            input {
-                flex: 1;
-            }
-
-            .status {
-                position: absolute;
-                right: 0.8rem;
-                font-size: 1.6rem;
-                cursor: help;
-            }
         }
 
         .submit {
@@ -130,5 +94,4 @@ button {
             }
         }
     }
-
 }
