@@ -1,9 +1,6 @@
 import { type FC } from 'react';
 import styles from './login-styles.scss';
-import { LoginHeader } from '@/presentation/components/login-header';
-import { Footer } from '@/presentation/components/footer';
-import { Input } from '@/presentation/components/input';
-import { StatusForm } from '@/presentation/components/status-form';
+import { LoginHeader, Footer, Input, StatusForm } from '@/presentation/components';
 
 export const Login: FC = () => {
   return (
