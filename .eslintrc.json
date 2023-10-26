@@ -30,6 +30,7 @@
                     "always"
                 ],
                 "react/react-in-jsx-scope": "off",
+                "react/display-name": "off",
                 "react/jsx-indent": ["warn", "tab", { "indentLogicalExpressions": true, "checkAttributes": true }],
                 "no-tabs": "off",
                 "react/jsx-indent-props": ["warn", "tab"],
