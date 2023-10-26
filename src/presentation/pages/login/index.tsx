@@ -1,9 +1,9 @@
 import { type FC } from 'react';
 import styles from './login-styles.scss';
-import { Spinner } from '@/presentation/components/spinner';
 import { LoginHeader } from '@/presentation/components/login-header';
 import { Footer } from '@/presentation/components/footer';
 import { Input } from '@/presentation/components/input';
+import { StatusForm } from '@/presentation/components/status-form';
 
 export const Login: FC = () => {
   return (
@@ -34,11 +34,7 @@ export const Login: FC = () => {
 
 			<span className={styles.link}>Criar conta</span>
 
-			<div className={styles.errorWrap} >
-				<Spinner className={styles.spinner} />
-
-				<span className={styles.error}>Error</span>
-			</div>
+			<StatusForm errorMessage='Erro'/>
 		</form>
 
 		<Footer />
