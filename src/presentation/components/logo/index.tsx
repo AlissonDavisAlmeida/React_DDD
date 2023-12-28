@@ -1,3 +1,4 @@
+import React from 'react';
 import { logoImageBase64 } from '@/utils/constants';
 
 export const LogoTip = () => {

@@ -4,3 +4,5 @@ jest.config.ts
 public
 webpack.config.ts
 *.scss
+jest.setup.ts
+setupTests.ts

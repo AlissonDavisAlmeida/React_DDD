@@ -1,4 +1,4 @@
-import { type FC, type HtmlHTMLAttributes } from 'react';
+import React, { type FC, type HtmlHTMLAttributes } from 'react';
 import styles from './spinner-styles.scss';
 
 type SpinnerProps = HtmlHTMLAttributes<HTMLElement>

@@ -1,8 +1,8 @@
-import { type FC } from 'react';
+import * as React from 'react';
 import styles from './login-styles.scss';
 import { LoginHeader, Footer, Input, StatusForm } from '@/presentation/components';
 
-export const Login: FC = () => {
+export const Login = () => {
   return (
 	<div className={styles.login}>
 		<LoginHeader />

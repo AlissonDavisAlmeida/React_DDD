@@ -1,3 +1,4 @@
+import React from 'react';
 import { type DetailedHTMLProps, type InputHTMLAttributes } from 'react';
 import styles from './input-styles.scss';
 

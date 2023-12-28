@@ -30,13 +30,14 @@ const config: Config = {
     '\\.scss$': 'identity-obj-proxy',
   },
   testRegex: [
-    ".*\\..*test\\.ts?$",
-    ".*\\..*spec\\.ts?$",
+    ".*\\..*test\\.tsx?$",
+    ".*\\..*spec\\.tsx?$",
   ],
   watchPathIgnorePatterns: [
     "/node_modules/",
     "/dist/"
   ],
+  setupFiles:['<rootDir>/setupTests.ts'],
   
 };
 
