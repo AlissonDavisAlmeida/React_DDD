@@ -1,20 +1,24 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Spinner } from '../spinner';
 import styles from './status-form-styles.scss';
+import { FormContext } from '@/presentation/context/form/form-context';
 
-interface StatusFormProps {
-  errorMessage: string
-}
+export const StatusForm = () => {
+  const { isLoading, errorMessage } = useContext(FormContext);
 
-export const StatusForm = ({ errorMessage }: StatusFormProps) => {
   return (
 	<div
 		data-testid="error-wrap"
 		className={styles.errorWrap}
 	>
-		<Spinner className={styles.spinner} />
+		{isLoading && (
+			<>
+				<Spinner className={styles.spinner} />
 
-		<span className={styles.error}>{errorMessage}</span>
+				<span className={styles.error}>{errorMessage}</span>
+			</>
+		)
+			}
 	</div>
   );
 };
