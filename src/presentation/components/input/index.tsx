@@ -12,7 +12,13 @@ export const Input = (props: InputProps) => {
 			{...props}
 		/>
 
-		<span className={styles.status}>🟠</span>
+		<span
+			data-testid={`${props.name}-status`}
+			title='Campo obrigatório'
+			className={styles.status}
+		>
+			🟠
+		</span>
 	</div>
   );
 };

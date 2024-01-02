@@ -10,5 +10,13 @@ describe('Login Component', () => {
 
     expect(errorWrap.childElementCount).toBe(0);
     expect(submitButton.disabled).toBeTruthy();
+
+    const inputStatusLabelEmail = await screen.findByTestId('email-status');
+    expect(inputStatusLabelEmail.title).toBe('Campo obrigatório');
+    expect(inputStatusLabelEmail.textContent).toBe('🟠');
+
+    const inputStatusLabelPassword = await screen.findByTestId('password-status');
+    expect(inputStatusLabelPassword.title).toBe('Campo obrigatório');
+    expect(inputStatusLabelPassword.textContent).toBe('🟠');
   });
 });
