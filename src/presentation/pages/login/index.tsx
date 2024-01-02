@@ -37,6 +37,8 @@ export const Login = () => {
 				<button
 					className={styles.submit}
 					type="submit"
+					data-testid="submit"
+					disabled
 				>
 					Entrar
 				</button>
