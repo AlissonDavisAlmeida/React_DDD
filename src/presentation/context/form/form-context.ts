@@ -1,8 +1,9 @@
 import { createContext } from 'react';
 
-interface FormContextProps {
+export interface FormContextProps {
   isLoading?: boolean
   errorMessage?: string
+  inputError?: Record<string, string>
 }
 
 export const FormContext = createContext<FormContextProps>({});

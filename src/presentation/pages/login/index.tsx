@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
 import styles from './login-styles.scss';
 import { LoginHeader, Footer, Input, StatusForm } from '@/presentation/components';
-import { FormContext } from '@/presentation/context/form/form-context';
-
-interface INITIAL_STATE {
-  isLoading: boolean
-  errorMessage: string
-}
+import { FormContext, type FormContextProps } from '@/presentation/context/form/form-context';
 
 export const Login = () => {
-  const [state] = useState<INITIAL_STATE>({
+  const [state] = useState<FormContextProps>({
     isLoading: false,
-    errorMessage: ''
+    errorMessage: '',
+    inputError: {
+      email: 'Campo obrigatório',
+      password: 'Campo obrigatório'
+    }
   });
 
   return (
