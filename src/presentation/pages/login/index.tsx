@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import styles from './login-styles.scss';
 import { LoginHeader, Footer, Input, StatusForm } from '@/presentation/components';
-import { FormContext, type FormContextProps } from '@/presentation/context/form/form-context';
+import { type ErrorFormContextState, FormContext, type StatusFormContextProps } from '@/presentation/context/form/form-context';
 
 export const Login = () => {
-  const [state] = useState<FormContextProps>({
-    isLoading: false,
+  const [state] = useState<StatusFormContextProps>({
+    isLoading: false
+  });
+
+  const [errorState] = useState<ErrorFormContextState>({
     errorMessage: '',
     inputError: {
       email: 'Campo obrigatório',
@@ -17,7 +20,11 @@ export const Login = () => {
 	<div className={styles.login}>
 		<LoginHeader />
 
-		<FormContext.Provider value={state}>
+		<FormContext.Provider value={{
+			  ...state,
+			  ...errorState
+		}}
+		>
 			<form className={styles.form}>
 				<h2>Login</h2>
 
