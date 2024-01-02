@@ -11,14 +11,10 @@ export const StatusForm = () => {
 		data-testid="error-wrap"
 		className={styles.errorWrap}
 	>
-		{isLoading && (
-			<>
-				<Spinner className={styles.spinner} />
+		{isLoading && <Spinner className={styles.spinner} />}
 
-				<span className={styles.error}>{errorMessage}</span>
-			</>
-		)
-			}
+		{!!errorMessage && <span className={styles.error}>{errorMessage}</span>}
+
 	</div>
   );
 };
