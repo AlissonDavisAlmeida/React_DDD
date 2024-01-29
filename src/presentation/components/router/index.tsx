@@ -4,6 +4,6 @@ import { createBrowserRouter } from 'react-router-dom';
 export const router = createBrowserRouter([
   {
     path: '/login',
-    Component: Login
+    element: <Login />
   }
 ]);

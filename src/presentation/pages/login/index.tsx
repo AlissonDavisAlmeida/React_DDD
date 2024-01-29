@@ -1,20 +1,32 @@
-import React, { useState } from 'react';
+import React, { type FC, useState, useEffect } from 'react';
 import styles from './login-styles.scss';
 import { LoginHeader, Footer, Input, StatusForm } from '@/presentation/components';
-import { type ErrorFormContextState, FormContext, type StatusFormContextProps } from '@/presentation/context/form/form-context';
+import { FormContext, type FormContextProps } from '@/presentation/context/form/form-context';
+import { type Validation } from '@/presentation/protocols/validation';
 
-export const Login = () => {
-  const [state] = useState<StatusFormContextProps>({
-    isLoading: false
-  });
+interface LoginProps {
+  validation?: Validation
+}
 
-  const [errorState] = useState<ErrorFormContextState>({
+export const Login: FC<LoginProps> = ({ validation }) => {
+  const [state, setState] = useState<FormContextProps>({
+    isLoading: false,
     errorMessage: '',
     inputError: {
       email: 'Campo obrigatório',
       password: 'Campo obrigatório'
+    },
+    inputValue: {
+      email: '',
+	  password: ''
     }
   });
+
+  useEffect(() => {
+    if (state.inputValue) {
+      validation?.validate(state.inputValue);
+    }
+  }, [state.inputValue]);
 
   return (
 	<div className={styles.login}>
@@ -22,7 +34,7 @@ export const Login = () => {
 
 		<FormContext.Provider value={{
 			  ...state,
-			  ...errorState
+			  setState
 		}}
 		>
 			<form className={styles.form}>

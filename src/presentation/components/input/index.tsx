@@ -6,7 +6,7 @@ import { FormContext } from '@/presentation/context/form/form-context';
 type InputProps = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
 
 export const Input = (props: InputProps) => {
-  const { inputError } = useContext(FormContext);
+  const { inputError, inputValue, setState } = useContext(FormContext);
 
   const getStatus = (): string => {
     return '🟠';
@@ -16,11 +16,26 @@ export const Input = (props: InputProps) => {
     return (!!inputError && inputError[props.name as keyof typeof inputError]) || 'Campo obrigatório';
   };
 
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    const { name, value } = event.target;
+
+    setState?.((old) => ({
+      ...old,
+      inputValue: {
+        ...old.inputValue,
+        [name]: value
+      }
+    }));
+  };
+
   return (
 	<div className={styles.inputWrap}>
 
 		<input
 			{...props}
+			data-testid={props.name}
+			value={inputValue?.[props.name as keyof typeof inputValue]}
+			onChange={onChange}
 		/>
 
 		<span
