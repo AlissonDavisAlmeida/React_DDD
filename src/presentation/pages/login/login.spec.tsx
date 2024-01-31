@@ -10,10 +10,12 @@ interface SutTypes {
 }
 
 class ValidationSpy implements Validation {
-  input: object = {};
+  fieldName: string = '';
+  fieldValue: string = '';
   errorMessage: string = '';
-  validate (input: object): string {
-    this.input = input;
+  validate (fieldName: string, fieldValue: string): string {
+    this.fieldName = fieldName;
+    this.fieldValue = fieldValue;
     return this.errorMessage;
   }
 }
@@ -60,18 +62,17 @@ describe('Login Component', () => {
     expect(passwordInput.value).toBe('');
   });
 
-  test('should call Validation with correct value', async () => {
+  test.each`
+    fieldName    | errorMessage
+    ${'email'}   | ${'Campo obrigatório'}
+    ${'password'}| ${'Campo obrigatório'}
+  `('should show $errorMessage if $fieldName is invalid', async ({ fieldName, errorMessage }) => {
     const { sut, validationSpy } = makeSut();
 
-    const emailInput = await sut.findByTestId('email');
-    fireEvent.input(emailInput, { target: { value: 'any_email' } });
+    const input = await sut.findByTestId(fieldName);
+    fireEvent.input(input, { target: { value: 'any_value' } });
 
-    const passwordInput = await sut.findByTestId('password');
-    fireEvent.input(passwordInput, { target: { value: 'any_password' } });
-
-    expect(validationSpy.input).toEqual({
-      email: 'any_email',
-      password: 'any_password'
-    });
+    expect(validationSpy.fieldName).toBe(fieldName);
+    expect(validationSpy.fieldValue).toBe('any_value');
   });
 });

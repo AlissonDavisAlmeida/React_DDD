@@ -18,15 +18,21 @@ export const Login: FC<LoginProps> = ({ validation }) => {
     },
     inputValue: {
       email: '',
-	  password: ''
+      password: ''
     }
   });
 
   useEffect(() => {
     if (state.inputValue) {
-      validation?.validate(state.inputValue);
+      validation?.validate('email', state.inputValue.email);
     }
-  }, [state.inputValue]);
+  }, [state.inputValue?.email]);
+
+  useEffect(() => {
+    if (state.inputValue) {
+      validation?.validate('password', state.inputValue.password);
+    }
+  }, [state.inputValue?.password]);
 
   return (
 	<div className={styles.login}>
