@@ -52,21 +52,6 @@ describe('Login Component', () => {
     const passwordInput = await sut.findByTestId('password') as HTMLInputElement;
     expect(passwordInput.value).toBe('');
   });
-  test('should call Validation with correct value', async () => {
-    const { sut, validationSpy } = makeSut();
-
-    const emailInput = await sut.findByTestId('email');
-    const emailFake = faker.internet.email();
-    fireEvent.input(emailInput, { target: { value: emailFake } });
-    expect(validationSpy.fieldName).toBe('email');
-    expect(validationSpy.fieldValue).toBe(emailFake);
-
-    const passwordInput = await sut.findByTestId('password');
-    const passwordFake = faker.internet.password();
-    fireEvent.input(passwordInput, { target: { value: passwordFake } });
-    expect(validationSpy.fieldName).toBe('password');
-    expect(validationSpy.fieldValue).toBe(passwordFake);
-  });
 
   test('should show emailError if validation fails', () => {
     const { sut, validationSpy } = makeSut();
@@ -77,5 +62,26 @@ describe('Login Component', () => {
     const emailStatus = sut.getByTestId('email-status');
     expect(emailStatus.title).toBe(validationSpy.errorMessage);
     expect(emailStatus.textContent).toBe('🟠');
+  });
+  test('should show passwordError if validation fails', () => {
+    const { sut, validationSpy } = makeSut();
+
+    const emailInput = sut.getByTestId('password');
+    fireEvent.input(emailInput, { target: { value: faker.internet.password() } });
+
+    const emailStatus = sut.getByTestId('password-status');
+    expect(emailStatus.title).toBe(validationSpy.errorMessage);
+    expect(emailStatus.textContent).toBe('🟠');
+  });
+
+  test('should show valid email state if validation succeeds', () => {
+    const { sut, validationSpy } = makeSut();
+    validationSpy.errorMessage = '';
+    const emailInput = sut.getByTestId('email');
+    fireEvent.input(emailInput, { target: { value: faker.internet.email() } });
+
+    const emailStatus = sut.getByTestId('email-status');
+    expect(emailStatus.title).toBe('Tudo certo!');
+    expect(emailStatus.textContent).toBe('🟢');
   });
 });

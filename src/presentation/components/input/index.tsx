@@ -9,11 +9,15 @@ export const Input = (props: InputProps) => {
   const { inputError, inputValue, setState } = useContext(FormContext);
 
   const getStatus = (): string => {
-    return '🟠';
+    if (inputError && inputError[props.name as keyof typeof inputError]) {
+      return '🟠';
+    }
+
+    return '🟢';
   };
 
   const getTitle = () => {
-    return (!!inputError && inputError[props.name as keyof typeof inputError]) || 'Campo obrigatório';
+    return (!!inputError && inputError[props.name as keyof typeof inputError]) || 'Tudo certo!';
   };
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>): void => {

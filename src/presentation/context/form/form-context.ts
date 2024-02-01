@@ -3,9 +3,15 @@ import { createContext } from 'react';
 export interface FormContextProps {
   isLoading?: boolean
   errorMessage?: string
-  inputError?: Record<string, string>
+  inputError?: {
+    email?: string
+    password?: string
+  }
   setState?: React.Dispatch<React.SetStateAction<FormContextProps>>
-  inputValue?: Record<string, string>
+  inputValue?: {
+    email?: string
+    password?: string
+  }
 }
 
 export const FormContext = createContext<FormContextProps>({});

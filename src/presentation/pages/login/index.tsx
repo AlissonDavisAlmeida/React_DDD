@@ -24,35 +24,16 @@ export const Login: FC<LoginProps> = ({ validation }) => {
 
   useEffect(() => {
     if (state.inputValue) {
-      const errorMessage = validation?.validate('email', state.inputValue.email);
-
-	  if (errorMessage) {
-        setState((old) => ({
-          ...old,
-          inputError: {
-            ...old.inputError,
-            email: errorMessage
-          }
-        }));
-      }
+      setState((old) => ({
+        ...old,
+        inputError: {
+          ...old.inputError,
+          email: validation?.validate('email', state.inputValue?.email as string),
+          password: validation?.validate('password', state.inputValue?.password as string)
+        }
+      }));
     }
-  }, [state.inputValue?.email]);
-
-  useEffect(() => {
-    if (state.inputValue) {
-      const passwordError = validation?.validate('password', state.inputValue.password);
-
-	  if (passwordError) {
-        setState((old) => ({
-		  ...old,
-		  inputError: {
-            ...old.inputError,
-            password: passwordError
-		  }
-        }));
-      }
-    }
-  }, [state.inputValue?.password]);
+  }, [state.inputValue?.email, state.inputValue?.password]);
 
   return (
 	<div className={styles.login}>
