@@ -2,6 +2,7 @@ import React from 'react';
 import { Login } from '.';
 import { type RenderResult, render, cleanup, fireEvent } from '@testing-library/react';
 import { ValidationSpy } from '@/presentation/test/mock-validation';
+import { faker } from '@faker-js/faker/locale/pt_BR';
 
 interface SutTypes {
 
@@ -50,18 +51,19 @@ describe('Login Component', () => {
     const passwordInput = await sut.findByTestId('password') as HTMLInputElement;
     expect(passwordInput.value).toBe('');
   });
-
-  test.each`
-    fieldName    | errorMessage
-    ${'email'}   | ${'Campo obrigatório'}
-    ${'password'}| ${'Campo obrigatório'}
-  `('should show $errorMessage if $fieldName is invalid', async ({ fieldName, errorMessage }) => {
+  test('should call Validation with correct value', async () => {
     const { sut, validationSpy } = makeSut();
 
-    const input = await sut.findByTestId(fieldName);
-    fireEvent.input(input, { target: { value: 'any_value' } });
+    const emailInput = await sut.findByTestId('email');
+    const emailFake = faker.internet.email();
+    fireEvent.input(emailInput, { target: { value: emailFake } });
+    expect(validationSpy.fieldName).toBe('email');
+    expect(validationSpy.fieldValue).toBe(emailFake);
 
-    expect(validationSpy.fieldName).toBe(fieldName);
-    expect(validationSpy.fieldValue).toBe('any_value');
+    const passwordInput = await sut.findByTestId('password');
+    const passwordFake = faker.internet.password();
+    fireEvent.input(passwordInput, { target: { value: passwordFake } });
+    expect(validationSpy.fieldName).toBe('password');
+    expect(validationSpy.fieldValue).toBe(passwordFake);
   });
 });
