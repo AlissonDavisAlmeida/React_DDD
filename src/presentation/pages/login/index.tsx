@@ -35,6 +35,10 @@ export const Login: FC<LoginProps> = ({ validation }) => {
     }
   }, [state.inputValue?.email, state.inputValue?.password]);
 
+  const isInvalidForm = (): boolean => {
+    return !!state.inputError?.email || !!state.inputError?.password;
+  };
+
   return (
 	<div className={styles.login}>
 		<LoginHeader />
@@ -63,7 +67,7 @@ export const Login: FC<LoginProps> = ({ validation }) => {
 					className={styles.submit}
 					type="submit"
 					data-testid="submit"
-					disabled
+					disabled={isInvalidForm()}
 				>
 					Entrar
 				</button>
