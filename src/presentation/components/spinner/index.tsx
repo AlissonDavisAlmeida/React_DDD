@@ -8,6 +8,7 @@ export const Spinner: FC<SpinnerProps> = (props) => {
 	<div
 		{...props}
 		className={[styles.spinner, props.className].join(' ')}
+		data-testid="spinner"
 	>
 		<div />
 

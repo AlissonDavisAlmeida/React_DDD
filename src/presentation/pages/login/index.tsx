@@ -39,6 +39,20 @@ export const Login: FC<LoginProps> = ({ validation }) => {
     return !!state.inputError?.email || !!state.inputError?.password;
   };
 
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
+    event.preventDefault();
+
+    if (isInvalidForm() || state.isLoading) {
+      return;
+    }
+    console.log('submit');
+
+    setState((old) => ({
+      ...old,
+      isLoading: true
+    }));
+  };
+
   return (
 	<div className={styles.login}>
 		<LoginHeader />
@@ -48,7 +62,10 @@ export const Login: FC<LoginProps> = ({ validation }) => {
 			  setState
 		}}
 		>
-			<form className={styles.form}>
+			<form
+				className={styles.form}
+				onSubmit={handleSubmit}
+			>
 				<h2>Login</h2>
 
 				<Input
