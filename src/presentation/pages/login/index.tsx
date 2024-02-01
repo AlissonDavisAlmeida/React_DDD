@@ -13,8 +13,8 @@ export const Login: FC<LoginProps> = ({ validation }) => {
     isLoading: false,
     errorMessage: '',
     inputError: {
-      email: 'Campo obrigatório',
-      password: 'Campo obrigatório'
+      email: '',
+      password: ''
     },
     inputValue: {
       email: '',
@@ -24,13 +24,33 @@ export const Login: FC<LoginProps> = ({ validation }) => {
 
   useEffect(() => {
     if (state.inputValue) {
-      validation?.validate('email', state.inputValue.email);
+      const errorMessage = validation?.validate('email', state.inputValue.email);
+
+	  if (errorMessage) {
+        setState((old) => ({
+          ...old,
+          inputError: {
+            ...old.inputError,
+            email: errorMessage
+          }
+        }));
+      }
     }
   }, [state.inputValue?.email]);
 
   useEffect(() => {
     if (state.inputValue) {
-      validation?.validate('password', state.inputValue.password);
+      const passwordError = validation?.validate('password', state.inputValue.password);
+
+	  if (passwordError) {
+        setState((old) => ({
+		  ...old,
+		  inputError: {
+            ...old.inputError,
+            password: passwordError
+		  }
+        }));
+      }
     }
   }, [state.inputValue?.password]);
 
