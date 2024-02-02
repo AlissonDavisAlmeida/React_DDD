@@ -3,12 +3,14 @@ import styles from './login-styles.scss';
 import { LoginHeader, Footer, Input, StatusForm } from '@/presentation/components';
 import { FormContext, type FormContextProps } from '@/presentation/context/form/form-context';
 import { type Validation } from '@/presentation/protocols/validation';
+import { type Authentication } from '@/domain/usecases';
 
 interface LoginProps {
   validation?: Validation
+  authentication?: Authentication
 }
 
-export const Login: FC<LoginProps> = ({ validation }) => {
+export const Login: FC<LoginProps> = ({ validation, authentication }) => {
   const [state, setState] = useState<FormContextProps>({
     isLoading: false,
     errorMessage: '',
@@ -39,18 +41,22 @@ export const Login: FC<LoginProps> = ({ validation }) => {
     return !!state.inputError?.email || !!state.inputError?.password;
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
 
     if (isInvalidForm() || state.isLoading) {
       return;
     }
-    console.log('submit');
 
     setState((old) => ({
       ...old,
       isLoading: true
     }));
+
+    await authentication?.auth({
+      email: state.inputValue?.email as string,
+      password: state.inputValue?.password as string
+    });
   };
 
   return (
