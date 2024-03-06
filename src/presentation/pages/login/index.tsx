@@ -41,6 +41,13 @@ export const Login: FC<LoginProps> = ({ validation, authentication }) => {
     return !!state.inputError?.email || !!state.inputError?.password;
   };
 
+  const changeStateLoading = (value: boolean) => {
+    setState((old) => ({
+      ...old,
+      isLoading: value
+    }));
+  };
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
 
@@ -48,15 +55,21 @@ export const Login: FC<LoginProps> = ({ validation, authentication }) => {
       return;
     }
 
-    setState((old) => ({
-      ...old,
-      isLoading: true
-    }));
+    changeStateLoading(true);
 
-    await authentication?.auth({
-      email: state.inputValue?.email as string,
-      password: state.inputValue?.password as string
-    });
+    try {
+      await authentication?.auth({
+        email: state.inputValue?.email as string,
+        password: state.inputValue?.password as string
+      });
+    } catch (error: any) {
+      setState((old) => ({
+        ...old,
+        errorMessage: error.message
+      }));
+    }
+
+    changeStateLoading(false);
   };
 
   return (
