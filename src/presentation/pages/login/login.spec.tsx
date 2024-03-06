@@ -141,4 +141,15 @@ describe('Login Component', () => {
 
     });
   });
+
+  test('should call Authentication only once', () => {
+    const { sut, authenticationSpy, validationSpy } = makeSut();
+    const authMethodSPy = jest.spyOn(authenticationSpy, 'auth');
+    fillFields(sut, validationSpy);
+    const submitButton = sut.getByTestId('submit') as HTMLButtonElement;
+    fireEvent.click(submitButton);
+    fireEvent.click(submitButton);
+
+    expect(authMethodSPy).toHaveBeenCalledTimes(1);
+  });
 });
