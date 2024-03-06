@@ -71,6 +71,7 @@ export const Login: FC<LoginProps> = ({ validation, authentication }) => {
 			<form
 				className={styles.form}
 				onSubmit={handleSubmit}
+				data-testid="form"
 			>
 				<h2>Login</h2>
 

@@ -152,4 +152,13 @@ describe('Login Component', () => {
 
     expect(authMethodSPy).toHaveBeenCalledTimes(1);
   });
+
+  test('should not call Authentication if form is invalid', () => {
+    const { sut, authenticationSpy } = makeSut();
+    const authMethodSPy = jest.spyOn(authenticationSpy, 'auth');
+    const form = sut.getByTestId('form') as HTMLButtonElement;
+    fireEvent.submit(form);
+
+    expect(authMethodSPy).toHaveBeenCalledTimes(0);
+  });
 });
