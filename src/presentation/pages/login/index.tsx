@@ -58,10 +58,14 @@ export const Login: FC<LoginProps> = ({ validation, authentication }) => {
     changeStateLoading(true);
 
     try {
-      await authentication?.auth({
+      const account = await authentication?.auth({
         email: state.inputValue?.email as string,
         password: state.inputValue?.password as string
       });
+
+      if (account) {
+        localStorage.setItem('accessToken', account.accessToken);
+      }
     } catch (error: any) {
       setState((old) => ({
         ...old,
@@ -77,8 +81,8 @@ export const Login: FC<LoginProps> = ({ validation, authentication }) => {
 		<LoginHeader />
 
 		<FormContext.Provider value={{
-			  ...state,
-			  setState
+	  ...state,
+	  setState
 		}}
 		>
 			<form
