@@ -1,10 +1,12 @@
 import React from 'react';
 import { Login } from '.';
 import { type RenderResult, render, cleanup, fireEvent, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { AuthenticationSpy, ValidationSpy } from '@/presentation/test/mock-validation';
 import { faker } from '@faker-js/faker/locale/pt_BR';
 import { InvalidCredentialsError } from '@/domain/errors';
 import 'jest-localstorage-mock';
+import { Routes, Route, MemoryRouter, useLocation } from 'react-router-dom';
 
 interface SutTypes {
 
@@ -12,6 +14,11 @@ interface SutTypes {
   validationSpy: ValidationSpy
   authenticationSpy: AuthenticationSpy
 }
+
+const LocationDisplay = () => {
+  const location = useLocation();
+  return <div data-testid='location-display'>{location.pathname}</div>;
+};
 
 const emailFake = faker.internet.email();
 const passwordFake = faker.internet.password();
@@ -21,10 +28,30 @@ const makeSut = (): SutTypes => {
   const authenticationSpy = new AuthenticationSpy();
   const errorMessage = faker.word.words();
   validationSpy.errorMessage = errorMessage;
-  const sut = render(<Login
-	validation={validationSpy}
-	authentication={authenticationSpy}
-                     />);
+
+  const sut = render(<>
+	<MemoryRouter initialEntries={['/login']}>
+		<Routes>
+			<Route
+				path='/login'
+				element={<Login
+					validation={validationSpy}
+					authentication={authenticationSpy}
+				         />}
+			/>
+
+			<Route
+				path='/signup'
+				element={<div data-testid='signup-page'>signup</div>}
+			/>
+		</Routes>
+
+		<LocationDisplay/>
+	</MemoryRouter>
+
+        </>
+
+  );
 
   return {
     sut,
@@ -195,5 +222,15 @@ describe('Login Component', () => {
     await waitFor(() => sut.getByTestId('error-wrap'));
 
     expect(localStorage.setItem).toHaveBeenCalledWith('accessToken', authenticationSpy.account.accessToken);
+  });
+
+  test('should go to signup page', async () => {
+    const { sut } = makeSut();
+    const user = userEvent.setup();
+    const signup = sut.getByText(/Criar conta/i);
+    await user.click(signup);
+    // expect(router.state.location.pathname).toBe('/signup');
+    expect(sut.getByTestId('signup-page')).toBeTruthy();
+    expect(sut.getByTestId('location-display').textContent).toBe('/signup');
   });
 });

@@ -4,6 +4,7 @@ import { LoginHeader, Footer, Input, StatusForm } from '@/presentation/component
 import { FormContext, type FormContextProps } from '@/presentation/context/form/form-context';
 import { type Validation } from '@/presentation/protocols/validation';
 import { type Authentication } from '@/domain/usecases';
+import { Link } from 'react-router-dom';
 
 interface LoginProps {
   validation?: Validation
@@ -113,7 +114,14 @@ export const Login: FC<LoginProps> = ({ validation, authentication }) => {
 					Entrar
 				</button>
 
-				<span className={styles.link}>Criar conta</span>
+				<Link
+					data-testid="signup"
+					className={styles.link}
+					to="/signup"
+
+				>
+					Criar conta
+				</Link>
 
 				<StatusForm />
 			</form>
