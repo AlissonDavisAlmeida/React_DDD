@@ -30,8 +30,16 @@ const makeSut = (): SutTypes => {
   validationSpy.errorMessage = errorMessage;
 
   const sut = render(<>
-	<MemoryRouter initialEntries={['/login']}>
+	<MemoryRouter
+		initialEntries={['/login', '/']}
+		initialIndex={0}
+	>
 		<Routes>
+			<Route
+				path='/'
+				element={<div data-testid='home-page'>home</div>}
+			/>
+
 			<Route
 				path='/login'
 				element={<Login
@@ -70,6 +78,7 @@ const fillFields = (sut: RenderResult, validationSpy: ValidationSpy): void => {
 };
 
 describe('Login Component', () => {
+  const user = userEvent.setup();
   beforeEach(() => {
     localStorage.clear();
   });
@@ -217,16 +226,15 @@ describe('Login Component', () => {
     fillFields(sut, validationSpy);
 
     const submitButton = sut.getByTestId('submit') as HTMLButtonElement;
-    fireEvent.click(submitButton);
-
-    await waitFor(() => sut.getByTestId('error-wrap'));
+    await user.click(submitButton);
 
     expect(localStorage.setItem).toHaveBeenCalledWith('accessToken', authenticationSpy.account.accessToken);
+    expect(sut.getByTestId('location-display').textContent).toBe('/');
   });
 
   test('should go to signup page', async () => {
     const { sut } = makeSut();
-    const user = userEvent.setup();
+
     const signup = sut.getByText(/Criar conta/i);
     await user.click(signup);
     // expect(router.state.location.pathname).toBe('/signup');

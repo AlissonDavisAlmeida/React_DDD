@@ -4,7 +4,7 @@ import { LoginHeader, Footer, Input, StatusForm } from '@/presentation/component
 import { FormContext, type FormContextProps } from '@/presentation/context/form/form-context';
 import { type Validation } from '@/presentation/protocols/validation';
 import { type Authentication } from '@/domain/usecases';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 interface LoginProps {
   validation?: Validation
@@ -24,6 +24,8 @@ export const Login: FC<LoginProps> = ({ validation, authentication }) => {
       password: ''
     }
   });
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (state.inputValue) {
@@ -67,6 +69,11 @@ export const Login: FC<LoginProps> = ({ validation, authentication }) => {
       if (account) {
         localStorage.setItem('accessToken', account.accessToken);
       }
+
+      navigate('/', {
+        replace: true
+
+      });
     } catch (error: any) {
       setState((old) => ({
         ...old,
