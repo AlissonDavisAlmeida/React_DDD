@@ -30,6 +30,7 @@
                 "@typescript-eslint/prefer-optional-chain": "off",
                 "@typescript-eslint/prefer-nullish-coalescing": "off",
                 "@typescript-eslint/no-misused-promises": "off",
+                "@typescript-eslint/quotes": ["warn", "double"],
                 "semi": [
                     "warn",
                     "always"
@@ -49,6 +50,7 @@
                 "react/jsx-one-expression-per-line": ["warn", {"allow": "single-child"}],
                 // if tag is empty must be auto closing
                 "react/self-closing-comp": ["warn", {"component": true, "html": true}]
+                
             }
         }
     ]
