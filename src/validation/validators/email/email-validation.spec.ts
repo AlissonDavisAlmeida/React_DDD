@@ -1,5 +1,6 @@
 import { InvalidFieldError } from "@/validation/errors/invalid-field.error";
 import { EmailValidation } from "./email-validation";
+import { faker } from "@faker-js/faker/locale/pt_BR";
 
 const CONSTANTS = {
   email: "email"
@@ -21,8 +22,16 @@ describe("Email Validation", () => {
   test("should return error if email is invalid", () => {
     const { sut } = makeSut();
 
-    const error = sut.validate("invalid_email");
+    const error = sut.validate(faker.lorem.word());
 
     expect(error).toEqual(invalidEmailError);
+  });
+
+  test("should return falsy if email is valid", () => {
+    const { sut } = makeSut();
+
+    const error = sut.validate(faker.internet.email());
+
+    expect(error).toBeFalsy();
   });
 });
