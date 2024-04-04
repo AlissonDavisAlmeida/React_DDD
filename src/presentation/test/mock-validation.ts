@@ -1,12 +1,12 @@
-import { type Authentication, type AuthenticationParams } from '@/domain/usecases';
-import { type Validation } from '../protocols/validation';
-import { type AccountModel } from '@/domain/models';
-import { mockAccountModel } from '@/domain/test';
+import { type Authentication, type AuthenticationParams } from "@/domain/usecases";
+import { type Validation } from "../protocols/validation";
+import { type AccountModel } from "@/domain/models";
+import { mockAccountModel } from "@/domain/test";
 
 export class ValidationSpy implements Validation {
-  fieldName: string = '';
-  fieldValue: string = '';
-  errorMessage: string = '';
+  fieldName: string = "";
+  fieldValue: string = "";
+  errorMessage: string = "";
   validate (fieldName: string, fieldValue: string): string {
     this.fieldName = fieldName;
     this.fieldValue = fieldValue;

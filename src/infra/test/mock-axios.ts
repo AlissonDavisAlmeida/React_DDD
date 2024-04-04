@@ -1,5 +1,5 @@
-import axios from 'axios';
-import { faker } from '@faker-js/faker/locale/pt_BR';
+import axios from "axios";
+import { faker } from "@faker-js/faker/locale/pt_BR";
 
 export interface MockAxios {
   mockResolvedValues: {
