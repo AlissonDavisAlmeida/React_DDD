@@ -6,6 +6,10 @@ export class EmailValidation implements FieldValidation {
   constructor (public readonly fieldName: string) { }
 
   validate (value: string) {
+    if (value.trim().length === 0) {
+      return null;
+    }
+
     const isvalid = emailRegex.test(value);
 
     if (!isvalid) {
