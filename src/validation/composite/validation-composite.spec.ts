@@ -58,4 +58,12 @@ describe("ValidationComposite", () => {
 
     expect(error).toBe(CONSTANTS.error_message);
   });
+
+  test("should return null if validation succeeds", () => {
+    const { sut, fieldName } = makeSut();
+
+    const error = sut.validate(fieldName, faker.lorem.word());
+
+    expect(error).toBeNull();
+  });
 });
