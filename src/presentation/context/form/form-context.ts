@@ -1,11 +1,11 @@
-import { createContext } from 'react';
+import { createContext } from "react";
 
 export interface FormContextProps {
   isLoading?: boolean
   errorMessage?: string
   inputError?: {
-    email?: string
-    password?: string
+    email?: string | null
+    password?: string | null
   }
   setState?: React.Dispatch<React.SetStateAction<FormContextProps>>
   inputValue?: {

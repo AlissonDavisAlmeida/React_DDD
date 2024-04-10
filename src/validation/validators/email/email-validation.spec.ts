@@ -29,8 +29,9 @@ describe("Email Validation", () => {
 
   test("should return falsy if email is valid", () => {
     const { sut } = makeSut();
-
-    const error = sut.validate(faker.internet.email());
+    const email = faker.internet.email();
+    console.log("🚀 ~ test ~ email:", email);
+    const error = sut.validate(email);
 
     expect(error).toBeFalsy();
   });

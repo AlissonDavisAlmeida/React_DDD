@@ -1,10 +1,10 @@
-import React, { type FC, useState, useEffect } from 'react';
-import styles from './login-styles.scss';
-import { LoginHeader, Footer, Input, StatusForm } from '@/presentation/components';
-import { FormContext, type FormContextProps } from '@/presentation/context/form/form-context';
-import { type Validation } from '@/presentation/protocols/validation';
-import { type Authentication } from '@/domain/usecases';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { type FC, useState, useEffect } from "react";
+import styles from "./login-styles.scss";
+import { LoginHeader, Footer, Input, StatusForm } from "@/presentation/components";
+import { FormContext, type FormContextProps } from "@/presentation/context/form/form-context";
+import { type Validation } from "@/presentation/protocols/validation";
+import { type Authentication } from "@/domain/usecases";
+import { Link, useNavigate } from "react-router-dom";
 
 interface LoginProps {
   validation?: Validation
@@ -14,14 +14,14 @@ interface LoginProps {
 export const Login: FC<LoginProps> = ({ validation, authentication }) => {
   const [state, setState] = useState<FormContextProps>({
     isLoading: false,
-    errorMessage: '',
+    errorMessage: "",
     inputError: {
-      email: '',
-      password: ''
+      email: "",
+      password: ""
     },
     inputValue: {
-      email: '',
-      password: ''
+      email: "",
+      password: ""
     }
   });
 
@@ -33,15 +33,15 @@ export const Login: FC<LoginProps> = ({ validation, authentication }) => {
         ...old,
         inputError: {
           ...old.inputError,
-          email: validation?.validate('email', state.inputValue?.email as string),
-          password: validation?.validate('password', state.inputValue?.password as string)
+          email: validation?.validate("email", state.inputValue?.email as string),
+          password: validation?.validate("password", state.inputValue?.password as string)
         }
       }));
     }
   }, [state.inputValue?.email, state.inputValue?.password]);
 
   const isInvalidForm = (): boolean => {
-    return !!state.inputError?.email || !!state.inputError?.password;
+    return (!!state.inputError?.email || !!state.inputError?.password);
   };
 
   const changeStateLoading = (value: boolean) => {
@@ -67,10 +67,10 @@ export const Login: FC<LoginProps> = ({ validation, authentication }) => {
       });
 
       if (account) {
-        localStorage.setItem('accessToken', account.accessToken);
+        localStorage.setItem("accessToken", account.accessToken);
       }
 
-      navigate('/', {
+      navigate("/", {
         replace: true
 
       });
@@ -125,7 +125,6 @@ export const Login: FC<LoginProps> = ({ validation, authentication }) => {
 					data-testid="signup"
 					className={styles.link}
 					to="/signup"
-
 				>
 					Criar conta
 				</Link>
