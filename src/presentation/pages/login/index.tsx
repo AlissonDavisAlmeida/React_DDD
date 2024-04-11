@@ -16,7 +16,7 @@ export const Login: FC<LoginProps> = ({ validation, authentication }) => {
     isLoading: false,
     errorMessage: "",
     inputError: {
-      email: "",
+      email: "asa",
       password: ""
     },
     inputValue: {
@@ -75,6 +75,7 @@ export const Login: FC<LoginProps> = ({ validation, authentication }) => {
 
       });
     } catch (error: any) {
+      console.log("🚀 ~ handleSubmit ~ error:", error);
       setState((old) => ({
         ...old,
         errorMessage: error.message

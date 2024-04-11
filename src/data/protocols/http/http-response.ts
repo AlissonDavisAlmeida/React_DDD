@@ -1,4 +1,4 @@
-import { InvalidCredentialsError, UnexpectedError } from '@/domain/errors';
+import { InvalidCredentialsError, UnexpectedError } from "@/domain/errors";
 
 export enum HttpStatusCode {
   ok = 200,

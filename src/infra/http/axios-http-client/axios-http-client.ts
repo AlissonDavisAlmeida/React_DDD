@@ -1,14 +1,23 @@
 import { type HttpResponse, type HttpPostParams, type HttpPostClient } from "@/data/protocols/http";
-import axios from "axios";
+import axios, { type AxiosError } from "axios";
 
 export class AxiosHttpClient implements HttpPostClient<any, any> {
   async post (params: HttpPostParams<any>): Promise<HttpResponse<any>> {
-    const result = await axios.post(params.url, params?.body);
+    try {
+      const { data, status } = await axios.post(params.url, params?.body);
 
-    return {
+      return {
 
-      statusCode: result.status,
-      body: result.data
-    };
+        statusCode: status,
+        body: data
+      };
+    } catch (error: any) {
+      const errorResponse = error as AxiosError;
+      return {
+        statusCode: errorResponse.response?.status as number,
+        body: errorResponse.response?.data
+
+      };
+    }
   }
 }

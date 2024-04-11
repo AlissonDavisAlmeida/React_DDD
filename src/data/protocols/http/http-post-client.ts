@@ -1,4 +1,4 @@
-import { type HttpResponse } from './';
+import { type HttpResponse } from "./";
 
 export interface HttpPostParams<BodyRequest> {
   url: string

@@ -1,6 +1,6 @@
-import { MapHttpStatusToDomainError, type HttpPostClient } from '@/data/protocols/http';
-import { type AccountModel } from '@/domain/models';
-import { type Authentication, type AuthenticationParams } from '@/domain/usecases';
+import { MapHttpStatusToDomainError, type HttpPostClient } from "@/data/protocols/http";
+import { type AccountModel } from "@/domain/models";
+import { type Authentication, type AuthenticationParams } from "@/domain/usecases";
 
 export class RemoteAuthentication implements Authentication {
   constructor (
@@ -12,12 +12,13 @@ export class RemoteAuthentication implements Authentication {
     const httpResponse = await this.httpPostClient.post({ url: this.url, body: authenticationParams });
 
     const error = MapHttpStatusToDomainError.get(httpResponse.statusCode);
+    console.log("🚀 ~ RemoteAuthentication ~ auth ~ error:", error);
     if (error) {
       error();
     }
 
     if (!httpResponse.body) {
-      throw new Error('Unexpected error');
+      throw new Error("Unexpected error");
     }
 
     return await Promise.resolve(httpResponse.body);

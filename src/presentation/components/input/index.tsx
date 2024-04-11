@@ -1,7 +1,7 @@
-import React, { useContext } from 'react';
-import { type DetailedHTMLProps, type InputHTMLAttributes } from 'react';
-import styles from './input-styles.scss';
-import { FormContext } from '@/presentation/context/form/form-context';
+import React, { useContext } from "react";
+import { type DetailedHTMLProps, type InputHTMLAttributes } from "react";
+import styles from "./input-styles.scss";
+import { FormContext } from "@/presentation/context/form/form-context";
 
 type InputProps = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
 
@@ -10,14 +10,14 @@ export const Input = (props: InputProps) => {
 
   const getStatus = (): string => {
     if (inputError && inputError[props.name as keyof typeof inputError]) {
-      return '🟠';
+      return "🟠";
     }
 
-    return '🟢';
+    return "🟢";
   };
 
   const getTitle = () => {
-    return (!!inputError && inputError[props.name as keyof typeof inputError]) || 'Tudo certo!';
+    return (!!inputError && inputError[props.name as keyof typeof inputError]) || "Tudo certo!";
   };
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -40,6 +40,7 @@ export const Input = (props: InputProps) => {
 			data-testid={props.name}
 			value={inputValue?.[props.name as keyof typeof inputValue]}
 			onChange={onChange}
+			autoComplete="new-password"
 		/>
 
 		<span
