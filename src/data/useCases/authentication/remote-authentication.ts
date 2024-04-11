@@ -12,7 +12,6 @@ export class RemoteAuthentication implements Authentication {
     const httpResponse = await this.httpPostClient.post({ url: this.url, body: authenticationParams });
 
     const error = MapHttpStatusToDomainError.get(httpResponse.statusCode);
-    console.log("🚀 ~ RemoteAuthentication ~ auth ~ error:", error);
     if (error) {
       error();
     }
