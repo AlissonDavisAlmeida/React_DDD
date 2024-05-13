@@ -88,10 +88,12 @@ export const Login: FC<LoginProps> = ({ validation, authentication }) => {
 	<div className={styles.login}>
 		<LoginHeader />
 
-		<FormContext.Provider value={{
+		<FormContext.Provider
+
+			value={{
 	  ...state,
 	  setState
-		}}
+			}}
 		>
 			<form
 				className={styles.form}
