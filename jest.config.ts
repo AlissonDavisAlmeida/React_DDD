@@ -8,6 +8,7 @@ const config: Config = {
   collectCoverageFrom: [
     '<rootDir>/src/**/*.{ts, tsx}',
     "!**/*.d.ts",
+    "!<rootDir>/src/main/**/*",
   ],
   coverageDirectory: 'coverage',
   coveragePathIgnorePatterns: [
