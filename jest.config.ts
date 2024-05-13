@@ -9,6 +9,7 @@ const config: Config = {
     '<rootDir>/src/**/*.{ts, tsx}',
     "!**/*.d.ts",
     "!<rootDir>/src/main/**/*",
+    "!<rootDir>/src/presentation/components/router/**/*",
   ],
   coverageDirectory: 'coverage',
   coveragePathIgnorePatterns: [
