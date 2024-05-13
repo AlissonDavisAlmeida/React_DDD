@@ -1,3 +1,3 @@
-export const makeUrl = (): string => {
-  return "https://react-advanced.wiremockapi.cloud/login";
+export const makeUrl = (endpoint: string): string => {
+  return `http://localhost:3100/api${endpoint}`;
 };

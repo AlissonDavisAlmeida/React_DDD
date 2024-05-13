@@ -6,3 +6,4 @@ webpack.config.ts
 *.scss
 jest.setup.ts
 setupTests.ts
+*.js
