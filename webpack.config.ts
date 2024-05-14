@@ -1,5 +1,5 @@
 import path from "node:path";
-import webpack from "webpack";
+import webpack, { WebpackPluginInstance } from "webpack";
 import { CleanWebpackPlugin } from "clean-webpack-plugin";
 import Dotenv from "dotenv-webpack";
 import "webpack-dev-server";
@@ -56,7 +56,7 @@ const config: webpack.Configuration = {
     },  
     plugins: [
         new CleanWebpackPlugin(),
-        new Dotenv()
+        new Dotenv() as unknown as WebpackPluginInstance
     ]
 }
 

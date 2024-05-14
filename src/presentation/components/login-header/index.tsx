@@ -1,7 +1,7 @@
-import * as React from 'react';
+import * as React from "react";
 
-import { LogoTip } from '../logo';
-import styles from './login-header-styles.scss';
+import { LogoTip } from "../logo";
+import styles from "./login-header-styles.scss";
 
 export const LoginHeader = React.memo(() => {
   return (

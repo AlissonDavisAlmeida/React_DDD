@@ -1,5 +1,5 @@
-import { type HttpPostParams } from '../protocols/http';
-import { faker } from '@faker-js/faker/locale/pt_BR';
+import { type HttpPostParams } from "../protocols/http";
+import { faker } from "@faker-js/faker/locale/pt_BR";
 
 export const mockPostRequest = (): HttpPostParams<any> => {
   return {
