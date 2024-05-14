@@ -1,6 +1,7 @@
 import path from "node:path";
 import webpack from "webpack";
 import { CleanWebpackPlugin } from "clean-webpack-plugin";
+import Dotenv from "dotenv-webpack";
 import "webpack-dev-server";
 
 const config: webpack.Configuration = {
@@ -52,10 +53,10 @@ const config: webpack.Configuration = {
     externals: {
         "react": "React",
         "react-dom": "ReactDOM"
-    },
+    },  
     plugins: [
-        new CleanWebpackPlugin()
-
+        new CleanWebpackPlugin(),
+        new Dotenv()
     ]
 }
 
