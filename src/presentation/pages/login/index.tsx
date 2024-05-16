@@ -5,13 +5,15 @@ import { FormContext, type FormContextProps } from "@/presentation/context/form/
 import { type Validation } from "@/presentation/protocols/validation";
 import { type Authentication } from "@/domain/usecases";
 import { Link, useNavigate } from "react-router-dom";
+import { type SaveAccessToken } from "@/domain/usecases/save-access-token";
 
 interface LoginProps {
   validation?: Validation
   authentication?: Authentication
+  saveAccessToken?: SaveAccessToken
 }
 
-export const Login: FC<LoginProps> = ({ validation, authentication }) => {
+export const Login: FC<LoginProps> = ({ validation, authentication, saveAccessToken }) => {
   const [state, setState] = useState<FormContextProps>({
     isLoading: false,
     errorMessage: "",
@@ -67,7 +69,7 @@ export const Login: FC<LoginProps> = ({ validation, authentication }) => {
       });
 
       if (account) {
-        localStorage.setItem("accessToken", account.accessToken);
+        await saveAccessToken?.save(account.accessToken);
       }
 
       navigate("/", {

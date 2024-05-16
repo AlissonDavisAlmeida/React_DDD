@@ -5,14 +5,15 @@ import userEvent from "@testing-library/user-event";
 import { AuthenticationSpy, ValidationSpy } from "@/presentation/test/mock-validation";
 import { faker } from "@faker-js/faker/locale/pt_BR";
 import { InvalidCredentialsError } from "@/domain/errors";
-import "jest-localstorage-mock";
 import { Routes, Route, MemoryRouter, useLocation } from "react-router-dom";
+import { SaveAccessTokenMock } from "@/presentation/test/mock-save-access-token";
 
 interface SutTypes {
 
   sut: RenderResult
   validationSpy: ValidationSpy
   authenticationSpy: AuthenticationSpy
+  saveAccessTokenMock: SaveAccessTokenMock
 }
 
 const LocationDisplay = () => {
@@ -26,6 +27,7 @@ const passwordFake = faker.internet.password();
 const makeSut = (): SutTypes => {
   const validationSpy = new ValidationSpy();
   const authenticationSpy = new AuthenticationSpy();
+  const saveAccessTokenMock = new SaveAccessTokenMock();
   const errorMessage = faker.word.words();
   validationSpy.errorMessage = errorMessage;
 
@@ -45,6 +47,7 @@ const makeSut = (): SutTypes => {
 				element={<Login
 					validation={validationSpy}
 					authentication={authenticationSpy}
+					saveAccessToken={saveAccessTokenMock}
 				         />}
 			/>
 
@@ -64,7 +67,8 @@ const makeSut = (): SutTypes => {
   return {
     sut,
     validationSpy,
-    authenticationSpy
+    authenticationSpy,
+    saveAccessTokenMock
   };
 };
 
@@ -79,9 +83,6 @@ const fillFields = (sut: RenderResult, validationSpy: ValidationSpy): void => {
 
 describe("Login Component", () => {
   const user = userEvent.setup();
-  beforeEach(() => {
-    localStorage.clear();
-  });
 
   afterEach(cleanup);
 
@@ -221,14 +222,14 @@ describe("Login Component", () => {
     expect(mainError.textContent).toBe(error.message);
   });
 
-  test("should add accessToken to localstorage on success", async () => {
-    const { sut, validationSpy, authenticationSpy } = makeSut();
+  test("should call SaveAccessToken on success", async () => {
+    const { sut, validationSpy, authenticationSpy, saveAccessTokenMock } = makeSut();
     fillFields(sut, validationSpy);
 
     const submitButton = sut.getByTestId("submit") as HTMLButtonElement;
     await user.click(submitButton);
 
-    expect(localStorage.setItem).toHaveBeenCalledWith("accessToken", authenticationSpy.account.accessToken);
+    expect(saveAccessTokenMock.accessToken).toBe(authenticationSpy.account.accessToken);
     expect(sut.getByTestId("location-display").textContent).toBe("/");
   });
 
