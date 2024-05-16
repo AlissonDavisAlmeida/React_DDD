@@ -57,10 +57,10 @@ const makeSut = (): SutTypes => {
 			/>
 		</Routes>
 
-		<LocationDisplay/>
+		<LocationDisplay />
 	</MemoryRouter>
 
-        </>
+  </>
 
   );
 
@@ -241,5 +241,23 @@ describe("Login Component", () => {
     // expect(router.state.location.pathname).toBe('/signup');
     expect(sut.getByTestId("signup-page")).toBeTruthy();
     expect(sut.getByTestId("location-display").textContent).toBe("/signup");
+  });
+
+  test("should present error if SaveAccessToken fails", async () => {
+    const { sut, saveAccessTokenMock, validationSpy } = makeSut();
+    fillFields(sut, validationSpy);
+    const error = new Error(faker.lorem.sentence());
+    jest.spyOn(saveAccessTokenMock, "save").mockRejectedValueOnce(error);
+
+    const submitButton = sut.getByTestId("submit") as HTMLButtonElement;
+    await user.click(submitButton);
+
+    await waitFor(() => sut.getByTestId("error-wrap"));
+
+    const errorWrap = sut.getByTestId("error-wrap");
+    expect(errorWrap.childElementCount).toBe(1);
+
+    const mainError = sut.getByTestId("main-error");
+    expect(mainError.textContent).toBe(error.message);
   });
 });
