@@ -77,7 +77,6 @@ export const Login: FC<LoginProps> = ({ validation, authentication, saveAccessTo
 
       });
     } catch (error: any) {
-      console.log("🚀 ~ handleSubmit ~ error:", error);
       setState((old) => ({
         ...old,
         errorMessage: error.message

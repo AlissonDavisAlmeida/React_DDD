@@ -163,20 +163,22 @@ describe("Login Component", () => {
     expect(submitButton.disabled).toBeFalsy();
   });
 
-  test("should show spinner on submit", () => {
+  test("should show spinner on submit", async () => {
     const { sut, validationSpy } = makeSut();
     fillFields(sut, validationSpy);
     const submitButton = sut.getByTestId("submit") as HTMLButtonElement;
     fireEvent.click(submitButton);
+
+    await waitFor(() => sut.getByTestId("spinner"));
     const spinner = sut.getByTestId("spinner");
     expect(spinner).toBeTruthy();
   });
 
-  test("should call Authentication with correct values", () => {
+  test("should call Authentication with correct values", async () => {
     const { sut, authenticationSpy, validationSpy } = makeSut();
     fillFields(sut, validationSpy);
     const submitButton = sut.getByTestId("submit") as HTMLButtonElement;
-    fireEvent.click(submitButton);
+    await userEvent.click(submitButton);
 
     expect(authenticationSpy.params).toStrictEqual({
       email: emailFake,
@@ -185,13 +187,13 @@ describe("Login Component", () => {
     });
   });
 
-  test("should call Authentication only once", () => {
+  test("should call Authentication only once", async () => {
     const { sut, authenticationSpy, validationSpy } = makeSut();
     const authMethodSPy = jest.spyOn(authenticationSpy, "auth");
     fillFields(sut, validationSpy);
     const submitButton = sut.getByTestId("submit") as HTMLButtonElement;
-    fireEvent.click(submitButton);
-    fireEvent.click(submitButton);
+    await userEvent.click(submitButton);
+    await userEvent.click(submitButton);
 
     expect(authMethodSPy).toHaveBeenCalledTimes(1);
   });
@@ -238,7 +240,7 @@ describe("Login Component", () => {
 
     const signup = sut.getByText(/Criar conta/i);
     await user.click(signup);
-    // expect(router.state.location.pathname).toBe('/signup');
+
     expect(sut.getByTestId("signup-page")).toBeTruthy();
     expect(sut.getByTestId("location-display").textContent).toBe("/signup");
   });
