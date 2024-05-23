@@ -17,7 +17,7 @@
     "check": "yarn dlx yarn-check -u -s"
   },
   "lint-staged": {
-    "*.{js,ts}": [
+    "src/**/*.{js,ts}": [
       "eslint  --fix",
       "yarn test:staged"
     ]
