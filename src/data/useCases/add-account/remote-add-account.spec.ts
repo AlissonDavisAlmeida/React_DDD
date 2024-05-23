@@ -7,6 +7,7 @@ import { type AddAccountParams, type AuthenticationParams } from "@/domain/useca
 import { faker } from "@faker-js/faker/locale/pt_BR";
 import { randomUUID } from "crypto";
 import { RemoteAddAccountUseCase } from "./remote-add-account";
+import { EmailInUseError } from "@/domain/errors/email-in-use.error";
 
 interface SutTypes {
   sut: RemoteAddAccountUseCase
@@ -49,6 +50,17 @@ describe("RemoteAddAccountUseCase", () => {
     await sut.add(addAccountParams);
 
     expect(httpPostClient.body).toEqual(addAccountParams);
+  });
+
+  test("Should throw UnexpectedError if HttpPostClient returns 403", async () => {
+    const { sut, httpPostClient } = makeSut();
+    httpPostClient.response = {
+      statusCode: HttpStatusCode.emailInUse
+    };
+
+    const promise = sut.add(makeAddAccountParams());
+
+    await expect(promise).rejects.toThrow(new EmailInUseError());
   });
 
   test("Should throw UnexpectedError if HttpPostClient returns 400", async () => {
