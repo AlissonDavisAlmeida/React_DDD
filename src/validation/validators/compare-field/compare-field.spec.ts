@@ -2,7 +2,7 @@ import { CompareFieldError } from "@/validation/errors/compare-field.error";
 import { CompareFieldValidation } from "./compare-field";
 
 const makeSut = (): CompareFieldValidation => {
-  return new CompareFieldValidation("field");
+  return new CompareFieldValidation("field", "field_value");
 };
 
 describe("CompareFieldValidation", () => {
@@ -14,7 +14,7 @@ describe("CompareFieldValidation", () => {
 
   test("should return null if validation succeeds", () => {
     const sut = makeSut();
-    const error = sut.validate("field");
+    const error = sut.validate("field_value");
     expect(error).toBeNull();
   });
 });

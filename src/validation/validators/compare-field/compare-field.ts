@@ -3,6 +3,7 @@ import { type FieldValidation } from "@/validation/protocols/field-validation";
 
 export class CompareFieldValidation implements FieldValidation {
   constructor (
+    public readonly fieldName: string,
     private readonly fieldValue: string
   ) { }
 
