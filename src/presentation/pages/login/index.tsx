@@ -3,9 +3,8 @@ import styles from "./login-styles.scss";
 import { LoginHeader, Footer, Input, StatusForm } from "@/presentation/components";
 import { FormContext, type FormContextProps } from "@/presentation/context/form/form-context";
 import { type Validation } from "@/presentation/protocols/validation";
-import { type Authentication } from "@/domain/usecases";
+import { type Authentication, type SaveAccessToken } from "@/domain/usecases";
 import { Link, useNavigate } from "react-router-dom";
-import { type SaveAccessToken } from "@/domain/usecases/save-access-token";
 
 interface LoginProps {
   validation?: Validation
