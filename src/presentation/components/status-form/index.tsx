@@ -1,10 +1,13 @@
 import React, { useContext } from "react";
 import { Spinner } from "../spinner";
 import styles from "./status-form-styles.scss";
-import { FormContext } from "@/presentation/context/form/form-context";
 
-export const StatusForm = () => {
-  const { isLoading, errorMessage } = useContext(FormContext);
+interface ContextProps<ContextType> {
+  context: React.Context<ContextType>
+}
+
+export const StatusForm = <T,>({ context }: ContextProps<T>) => {
+  const { isLoading, errorMessage } = useContext<T>(context) as any;
 
   return (
 	<div

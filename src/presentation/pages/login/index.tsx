@@ -1,7 +1,7 @@
 import React, { type FC, useState, useEffect } from "react";
 import styles from "./login-styles.scss";
 import { LoginHeader, Footer, Input, StatusForm } from "@/presentation/components";
-import { FormContext, type FormContextProps } from "@/presentation/context/form/form-context";
+import { FormContextLogin, type FormContextLoginProps } from "@/presentation/context/login/form/form-context-login";
 import { type Validation } from "@/presentation/protocols/validation";
 import { type Authentication, type SaveAccessToken } from "@/domain/usecases";
 import { Link, useNavigate } from "react-router-dom";
@@ -13,11 +13,11 @@ interface LoginProps {
 }
 
 export const Login: FC<LoginProps> = ({ validation, authentication, saveAccessToken }) => {
-  const [state, setState] = useState<FormContextProps>({
+  const [state, setState] = useState<FormContextLoginProps>({
     isLoading: false,
     errorMessage: "",
     inputError: {
-      email: "asa",
+      email: "",
       password: ""
     },
     inputValue: {
@@ -89,7 +89,7 @@ export const Login: FC<LoginProps> = ({ validation, authentication, saveAccessTo
 	<div className={styles.login}>
 		<LoginHeader />
 
-		<FormContext.Provider
+		<FormContextLogin.Provider
 
 			value={{
 	  ...state,
@@ -103,16 +103,22 @@ export const Login: FC<LoginProps> = ({ validation, authentication, saveAccessTo
 			>
 				<h2>Login</h2>
 
-				<Input
-					type='email'
-					name='email'
-					placeholder="Digite seu email"
+				<Input<FormContextLoginProps>
+					context={FormContextLogin}
+					props={{
+					  type: "email",
+					  name: "email",
+					  placeholder: "Digite seu email"
+					}}
 				/>
 
-				<Input
-					type='password'
-					name='password'
-					placeholder="Digite sua senha"
+				<Input<FormContextLoginProps>
+					context={FormContextLogin}
+					props={{
+					  type: "password",
+					  name: "password",
+					  placeholder: "Digite sua senha"
+					}}
 				/>
 
 				<button
@@ -132,9 +138,11 @@ export const Login: FC<LoginProps> = ({ validation, authentication, saveAccessTo
 					Criar conta
 				</Link>
 
-				<StatusForm />
+				<StatusForm<FormContextLoginProps>
+					context={FormContextLogin}
+				/>
 			</form>
-		</FormContext.Provider>
+		</FormContextLogin.Provider>
 
 		<Footer />
 	</div>

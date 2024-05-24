@@ -1,17 +1,17 @@
 import { createContext } from "react";
 
-export interface FormContextProps {
+export interface FormContextLoginProps {
   isLoading?: boolean
   errorMessage?: string
   inputError?: {
     email?: string | null
     password?: string | null
   }
-  setState?: React.Dispatch<React.SetStateAction<FormContextProps>>
+  setState?: React.Dispatch<React.SetStateAction<FormContextLoginProps>>
   inputValue?: {
     email?: string
     password?: string
   }
 }
 
-export const FormContext = createContext<FormContextProps>({});
+export const FormContextLogin = createContext<FormContextLoginProps>({});

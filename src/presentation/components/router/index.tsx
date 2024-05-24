@@ -1,4 +1,5 @@
 import { makeLogin } from "@/main/factories/pages/login/login-factory";
+import { makeSignup } from "@/main/factories/pages/signup/signup-factory";
 import { createBrowserRouter } from "react-router-dom";
 
 export const router = createBrowserRouter([
@@ -13,6 +14,6 @@ export const router = createBrowserRouter([
   },
   {
     path: "/signup",
-    element: <div data-testid='signup-page'>signup</div>
+    element: makeSignup()
   }
 ]);

@@ -15,7 +15,9 @@ body {
 }
 
 input[type="password"],
-input[type="email"] {
+input[type="email"],
+input[name="name"],
+input[name="passwordConfirmation"] {
     border: 0.1rem solid $primary-color-light;
     line-height: 4rem;
     border-radius: 0.4rem;
