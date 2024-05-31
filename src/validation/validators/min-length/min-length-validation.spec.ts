@@ -21,7 +21,7 @@ describe("MinLengthValidation", () => {
   test("should return error if value is invalid", () => {
     const { sut } = makeSut();
 
-    const error = sut.validate(faker.lorem.word({ length: 4 }));
+    const error = sut.validate({ any_field: faker.lorem.word({ length: 4 }) });
 
     expect(error).toEqual(new InvalidFieldError(CONSTANTS.fieldName));
   });
@@ -29,7 +29,7 @@ describe("MinLengthValidation", () => {
   test("should return null if value is valid", () => {
     const { sut } = makeSut();
 
-    const error = sut.validate(faker.lorem.word({ length: 5 }));
+    const error = sut.validate({ any_field: faker.lorem.word({ length: 5 }) });
 
     expect(error).toBeNull();
   });

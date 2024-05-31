@@ -5,12 +5,12 @@ import { emailRegex } from "../utils/regex";
 export class EmailValidation implements FieldValidation {
   constructor (public readonly fieldName: string) { }
 
-  validate (value: string) {
-    if (value.trim().length === 0) {
+  validate (input: Record<string, any>): Error | null {
+    if (input[this.fieldName].trim().length === 0) {
       return null;
     }
 
-    const isvalid = emailRegex.test(value);
+    const isvalid = emailRegex.test(input[this.fieldName]);
 
     if (!isvalid) {
       return new InvalidFieldError(this.fieldName);

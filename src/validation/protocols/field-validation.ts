@@ -1,5 +1,5 @@
 export interface FieldValidation {
   fieldName?: string
-  validate: (value: string) => Error | null
+  validate: (input: Record<string, any>) => Error | null
 
 }

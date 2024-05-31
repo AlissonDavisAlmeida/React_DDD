@@ -4,14 +4,15 @@ import { LoginHeader, Footer, Input, StatusForm } from "@/presentation/component
 import { FormContextSignup, type FormContextSignupProps } from "@/presentation/context/signup/form/form-context-signup";
 import { type Validation } from "@/presentation/protocols/validation";
 import { Link, useNavigate } from "react-router-dom";
-import { type AddAccount } from "@/domain/usecases";
+import { type SaveAccessToken, type AddAccount } from "@/domain/usecases";
 
 interface SignupProps {
   validation?: Validation
   addAccount?: AddAccount
+  saveAccessToken?: SaveAccessToken
 }
 
-export const Signup: FC<SignupProps> = ({ validation, addAccount }) => {
+export const Signup: FC<SignupProps> = ({ validation, addAccount, saveAccessToken }) => {
   const [state, setState] = useState<FormContextSignupProps>({
     isLoading: false,
     errorMessage: "",
@@ -37,10 +38,10 @@ export const Signup: FC<SignupProps> = ({ validation, addAccount }) => {
         ...old,
         inputError: {
           ...old.inputError,
-          name: validation?.validate("name", state.inputValue?.name as string),
-          email: validation?.validate("email", state.inputValue?.email as string),
-          password: validation?.validate("password", state.inputValue?.password as string),
-          passwordConfirmation: validation?.validate("passwordConfirmation", state.inputValue?.passwordConfirmation as string)
+          name: validation?.validate("name", { name: state.inputValue?.name as string }),
+          email: validation?.validate("email", { email: state.inputValue?.email as string }),
+          password: validation?.validate("password", { password: state.inputValue?.password as string, passwordConfirmation: state.inputValue?.passwordConfirmation as string }),
+          passwordConfirmation: validation?.validate("passwordConfirmation", { passwordConfirmation: state.inputValue?.passwordConfirmation as string })
         }
       }));
     }
@@ -75,12 +76,16 @@ export const Signup: FC<SignupProps> = ({ validation, addAccount }) => {
     changeStateLoading(true);
 
     try {
-      await addAccount?.add({
+      const account = await addAccount?.add({
         name: state.inputValue?.name as string,
         email: state.inputValue?.email as string,
         password: state.inputValue?.password as string,
         passwordConfirmation: state.inputValue?.passwordConfirmation as string
       });
+
+      if (account) {
+        await saveAccessToken?.save(account.accessToken);
+      }
 
       navigate("/", {
         replace: true

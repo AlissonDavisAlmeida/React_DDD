@@ -14,7 +14,7 @@ interface SutTypes {
 class FieldValidationSpy implements FieldValidation {
   public error: Error | null = null;
   constructor (public readonly fieldName: string) {}
-  validate (value: string) {
+  validate (input: Record<string, any>) {
     return this.error;
   }
 }
@@ -43,7 +43,7 @@ describe("ValidationComposite", () => {
 
     fieldsValidationsSpy[1].error = new Error(CONSTANTS.error_message);
 
-    const error = sut.validate(fieldName, faker.lorem.word());
+    const error = sut.validate(fieldName, { [fieldName]: faker.lorem.word() });
 
     expect(error).toBe(CONSTANTS.error_message);
   });
@@ -54,7 +54,7 @@ describe("ValidationComposite", () => {
     fieldsValidationsSpy[0].error = new Error(CONSTANTS.error_message);
     fieldsValidationsSpy[1].error = new Error(faker.lorem.word());
 
-    const error = sut.validate(fieldName, faker.lorem.word());
+    const error = sut.validate(fieldName, { [fieldName]: faker.lorem.word() });
 
     expect(error).toBe(CONSTANTS.error_message);
   });
@@ -62,7 +62,7 @@ describe("ValidationComposite", () => {
   test("should return null if validation succeeds", () => {
     const { sut, fieldName } = makeSut();
 
-    const error = sut.validate(fieldName, faker.lorem.word());
+    const error = sut.validate(fieldName, { [fieldName]: faker.lorem.word() });
 
     expect(error).toBeNull();
   });

@@ -45,7 +45,7 @@ export const Input = <T,>({ context, props: { name, ...props } }: InputAttribute
 			data-testid={name}
 			value={inputValue?.[name as keyof typeof inputValue]}
 			onChange={onChange}
-			autoComplete="new-password"
+			autoComplete="off"
 		/>
 
 		<span

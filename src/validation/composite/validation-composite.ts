@@ -6,10 +6,11 @@ export class ValidationComposite implements Validation {
     private readonly fieldValidations: FieldValidation[]
   ) { }
 
-  validate (fieldName: string, fieldValue: string): string | null {
+  validate (fieldName: string, input: Record<string, any>): string | null {
     const validations = this.fieldValidations.filter(validation => validation.fieldName === fieldName);
     for (const validation of validations) {
-      const error = validation.validate(fieldValue);
+      const error = validation.validate(input);
+
       if (error) {
         return error.message;
       }

@@ -7,12 +7,14 @@ import { faker } from "@faker-js/faker/locale/pt_BR";
 import { Routes, Route, MemoryRouter, useLocation } from "react-router-dom";
 import { RemoteAddAccountMock } from "@/presentation/test/mock-remote-add-account";
 import { UnexpectedError } from "@/domain/errors";
+import { SaveAccessTokenMock } from "@/presentation/test/mock-save-access-token";
 
 interface SutTypes {
 
   sut: RenderResult
   validationSpy: ValidationSpy
   addAccountSpy: RemoteAddAccountMock
+  saveAccessTokenMock: SaveAccessTokenMock
 }
 
 const LocationDisplay = () => {
@@ -27,6 +29,7 @@ const passwordFake = faker.internet.password();
 const makeSut = (): SutTypes => {
   const validationSpy = new ValidationSpy();
   const addAccountSpy = new RemoteAddAccountMock();
+  const saveAccessTokenMock = new SaveAccessTokenMock();
   const errorMessage = faker.word.words();
   validationSpy.errorMessage = errorMessage;
 
@@ -52,6 +55,7 @@ const makeSut = (): SutTypes => {
 				element={<Signup
 					validation={validationSpy}
 					addAccount={addAccountSpy}
+					saveAccessToken={saveAccessTokenMock}
 				         />}
 			/>
 		</Routes>
@@ -66,7 +70,8 @@ const makeSut = (): SutTypes => {
   return {
     sut,
     validationSpy,
-    addAccountSpy
+    addAccountSpy,
+    saveAccessTokenMock
   };
 };
 
@@ -246,5 +251,34 @@ describe("Signup Component", () => {
 
     expect(sut.getByTestId("login-page")).toBeTruthy();
     expect(sut.getByTestId("location-display").textContent).toBe("/login");
+  });
+
+  test("should present error if SaveAccessToken fails", async () => {
+    const { sut, saveAccessTokenMock, validationSpy } = makeSut();
+    fillFields(sut, validationSpy);
+    const error = new Error(faker.lorem.sentence());
+    jest.spyOn(saveAccessTokenMock, "save").mockRejectedValueOnce(error);
+
+    const submitButton = sut.getByTestId("submit") as HTMLButtonElement;
+    await user.click(submitButton);
+
+    await waitFor(() => sut.getByTestId("error-wrap"));
+
+    const errorWrap = sut.getByTestId("error-wrap");
+    expect(errorWrap.childElementCount).toBe(1);
+
+    const mainError = sut.getByTestId("main-error");
+    expect(mainError.textContent).toBe(error.message);
+  });
+
+  test("should call SaveAccessToken on success", async () => {
+    const { sut, validationSpy, addAccountSpy, saveAccessTokenMock } = makeSut();
+    fillFields(sut, validationSpy);
+
+    const submitButton = sut.getByTestId("submit") as HTMLButtonElement;
+    await user.click(submitButton);
+
+    expect(saveAccessTokenMock.accessToken).toBe(addAccountSpy.accessToken);
+    expect(sut.getByTestId("location-display").textContent).toBe("/");
   });
 });

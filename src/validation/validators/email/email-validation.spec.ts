@@ -22,7 +22,7 @@ describe("Email Validation", () => {
   test("should return error if email is invalid", () => {
     const { sut } = makeSut();
 
-    const error = sut.validate(faker.lorem.word());
+    const error = sut.validate({ email: faker.lorem.word() });
 
     expect(error).toEqual(invalidEmailError);
   });
@@ -30,7 +30,7 @@ describe("Email Validation", () => {
   test("should return falsy if email is valid", () => {
     const { sut } = makeSut();
     const email = faker.internet.email();
-    const error = sut.validate(email);
+    const error = sut.validate({ email });
 
     expect(error).toBeFalsy();
   });
@@ -38,7 +38,7 @@ describe("Email Validation", () => {
   test("should return falsy if email is empty", () => {
     const { sut } = makeSut();
 
-    const error = sut.validate("");
+    const error = sut.validate({ email: "" });
 
     expect(error).toBeFalsy();
   });

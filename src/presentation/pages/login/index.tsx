@@ -34,8 +34,8 @@ export const Login: FC<LoginProps> = ({ validation, authentication, saveAccessTo
         ...old,
         inputError: {
           ...old.inputError,
-          email: validation?.validate("email", state.inputValue?.email as string),
-          password: validation?.validate("password", state.inputValue?.password as string)
+          email: validation?.validate("email", { email: state.inputValue?.email as string }),
+          password: validation?.validate("password", { password: state.inputValue?.password as string })
         }
       }));
     }
