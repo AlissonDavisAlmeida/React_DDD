@@ -40,8 +40,8 @@ export const Signup: FC<SignupProps> = ({ validation, addAccount, saveAccessToke
           ...old.inputError,
           name: validation?.validate("name", { name: state.inputValue?.name as string }),
           email: validation?.validate("email", { email: state.inputValue?.email as string }),
-          password: validation?.validate("password", { password: state.inputValue?.password as string, passwordConfirmation: state.inputValue?.passwordConfirmation as string }),
-          passwordConfirmation: validation?.validate("passwordConfirmation", { passwordConfirmation: state.inputValue?.passwordConfirmation as string })
+          password: validation?.validate("password", { passwordConfirmation: state.inputValue?.passwordConfirmation as string }),
+          passwordConfirmation: validation?.validate("passwordConfirmation", { password: state.inputValue?.password as string, passwordConfirmation: state.inputValue?.passwordConfirmation as string })
         }
       }));
     }
