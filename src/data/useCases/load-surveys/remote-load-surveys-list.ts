@@ -1,4 +1,5 @@
 import { MapHttpStatusToDomainError, type HttpGetClient } from "@/data/protocols/http";
+import { UnexpectedError } from "@/domain/errors";
 import { type SurveyModel } from "@/domain/models";
 import { type ILoadSurveysList } from "@/domain/usecases/survey/load-surveys-list.interface";
 
@@ -18,7 +19,7 @@ export class RemoteLoadSurveysListUseCase implements ILoadSurveysList {
     }
 
     if (!httpResponse.body) {
-      throw new Error("Unexpected error");
+      throw new UnexpectedError();
     }
 
     return httpResponse.body;

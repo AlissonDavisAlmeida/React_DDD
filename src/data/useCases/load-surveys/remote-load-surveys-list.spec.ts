@@ -1,6 +1,8 @@
 import { HttpGetClientSpy } from "@/data/test";
 import { RemoteLoadSurveysListUseCase } from "./remote-load-surveys-list";
 import { type SurveyModel } from "@/domain/models";
+import { UnexpectedError } from "@/domain/errors";
+import { HttpStatusCode } from "@/data/protocols/http";
 
 interface SutTypes {
   sut: RemoteLoadSurveysListUseCase
@@ -38,5 +40,16 @@ describe("RemoteLoadSurveysList", () => {
     await sut.loadAll();
 
     expect(httpGetClientSpy.url).toBe("any_url");
+  });
+
+  it("should throw UnexpectedError if HttpGetClient returns 403", async () => {
+    const { sut, httpGetClientSpy } = makeSut();
+    httpGetClientSpy.response = {
+      statusCode: HttpStatusCode.badRequest
+    };
+
+    const promise = sut.loadAll();
+
+    await expect(promise).rejects.toThrow(new UnexpectedError());
   });
 });

@@ -1,4 +1,4 @@
-import { type HttpGetParams, HttpStatusCode, type HttpPostClient, type HttpPostParams, type HttpResponse } from "@/data/protocols/http/";
+import { type HttpGetParams, HttpStatusCode, type HttpPostClient, type HttpPostParams, type HttpResponse, type HttpGetClient } from "@/data/protocols/http/";
 import { faker } from "@faker-js/faker/locale/pt_BR";
 
 export class HttpPostClientSpy<BodyRequest, ResponseBody> implements HttpPostClient<BodyRequest, ResponseBody> {
@@ -22,7 +22,7 @@ export const mockPostRequest = (): HttpPostParams<any> => {
   };
 };
 
-export class HttpGetClientSpy<ResponseBody> {
+export class HttpGetClientSpy<ResponseBody> implements HttpGetClient<ResponseBody> {
   url?: string;
   response: HttpResponse<ResponseBody> = {
     statusCode: HttpStatusCode.ok
