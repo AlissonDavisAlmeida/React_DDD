@@ -3,6 +3,7 @@ import { RemoteLoadSurveysListUseCase } from "./remote-load-surveys-list";
 import { type SurveyModel } from "@/domain/models";
 import { UnexpectedError } from "@/domain/errors";
 import { HttpStatusCode } from "@/data/protocols/http";
+import { mockSurveyModel } from "@/domain/test";
 
 interface SutTypes {
   sut: RemoteLoadSurveysListUseCase
@@ -11,21 +12,7 @@ interface SutTypes {
 
 const makeSut = (): SutTypes => {
   const httpGetClientSpy = new HttpGetClientSpy<SurveyModel[]>();
-  httpGetClientSpy.response.body = [
-    {
-      id: "any_id",
-      question: "any_question",
-      answers: [
-        {
-          image: "any_image",
-          answer: "any_answer"
-        }
-      ],
-      date: new Date(),
-      didAnswer: true
-    }
-
-  ];
+  httpGetClientSpy.response.body = mockSurveyModel();
 
   const sut = new RemoteLoadSurveysListUseCase("any_url", httpGetClientSpy);
   return {
@@ -79,5 +66,16 @@ describe("RemoteLoadSurveysList", () => {
     const surveys = await sut.loadAll();
 
     expect(surveys).toEqual(httpGetClientSpy.response.body);
+  });
+
+  it("should return an empty list if HttpGetClient returns 204", async () => {
+    const { sut, httpGetClientSpy } = makeSut();
+    httpGetClientSpy.response = {
+      statusCode: HttpStatusCode.noContent
+    };
+
+    const surveys = await sut.loadAll();
+
+    expect(surveys).toEqual([]);
   });
 });

@@ -1,5 +1,4 @@
-import { MapHttpStatusToDomainError, type HttpGetClient } from "@/data/protocols/http";
-import { UnexpectedError } from "@/domain/errors";
+import { HttpStatusCode, MapHttpStatusToDomainError, type HttpGetClient } from "@/data/protocols/http";
 import { type SurveyModel } from "@/domain/models";
 import { type ILoadSurveysList } from "@/domain/usecases/survey/load-surveys-list.interface";
 
@@ -18,10 +17,10 @@ export class RemoteLoadSurveysListUseCase implements ILoadSurveysList {
       error();
     }
 
-    if (!httpResponse.body) {
-      throw new UnexpectedError();
+    if (httpResponse.statusCode === HttpStatusCode.noContent) {
+      return [];
     }
 
-    return httpResponse.body;
+    return httpResponse.body as SurveyModel[];
   }
 }
