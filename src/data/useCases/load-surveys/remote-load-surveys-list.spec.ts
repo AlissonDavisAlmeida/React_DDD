@@ -62,4 +62,22 @@ describe("RemoteLoadSurveysList", () => {
 
     await expect(promise).rejects.toThrow(new UnexpectedError());
   });
+  it("should throw ServerError if HttpGetClient returns 500", async () => {
+    const { sut, httpGetClientSpy } = makeSut();
+    httpGetClientSpy.response = {
+      statusCode: HttpStatusCode.serverError
+    };
+
+    const promise = sut.loadAll();
+
+    await expect(promise).rejects.toThrow(new UnexpectedError());
+  });
+
+  it("should return a list of SurveyModels if HttpGetClient returns 200", async () => {
+    const { sut, httpGetClientSpy } = makeSut();
+
+    const surveys = await sut.loadAll();
+
+    expect(surveys).toEqual(httpGetClientSpy.response.body);
+  });
 });
