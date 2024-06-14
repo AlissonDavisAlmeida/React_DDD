@@ -22,6 +22,6 @@ export class RemoteAddAccountUseCase implements AddAccount {
       throw new UnexpectedError();
     }
 
-    return await Promise.resolve(httpResponse.body);
+    return httpResponse.body;
   }
 }
