@@ -66,15 +66,15 @@ describe("Axios Http Client", () => {
       expect(mockedAxios.get).toHaveBeenCalledWith(url);
     });
 
-    // test("should return correct statusCode and body", async () => {
-    //   const { url } = mockGetRequest();
-    //   const { sut, mockedAxios: { mockResolvedGetValues } } = makeSut();
-    //   const result = await sut.get({ url });
+    test("should return correct statusCode and body", async () => {
+      const { url } = mockGetRequest();
+      const { sut, mockedAxios: { mockResolvedGetValues } } = makeSut();
+      const result = await sut.get({ url });
 
-    //   expect(result).toEqual({
-    //     statusCode: mockResolvedGetValues.status,
-    //     body: mockResolvedGetValues.data
-    //   });
-    // });
+      expect(result).toEqual({
+        statusCode: mockResolvedGetValues.status,
+        body: mockResolvedGetValues.data
+      });
+    });
   });
 });
