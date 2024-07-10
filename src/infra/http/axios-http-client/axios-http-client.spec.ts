@@ -1,6 +1,6 @@
 import { AxiosHttpClient } from "./axios-http-client";
 import { type MockAxios, mockAxios } from "@/infra/test";
-import { mockPostRequest } from "@/data/test";
+import { mockGetRequest, mockPostRequest } from "@/data/test";
 
 jest.mock("axios");
 
@@ -29,35 +29,52 @@ describe("Axios Http Client", () => {
     });
     test("should return correct statusCode and body", async () => {
       const { url, body } = mockPostRequest();
-      const { sut, mockedAxios: { mockResolvedValues } } = makeSut();
+      const { sut, mockedAxios: { mockResolvedPostValues } } = makeSut();
       const result = await sut.post({ url, body });
 
       expect(result).toEqual({
-        statusCode: mockResolvedValues.status,
-        body: mockResolvedValues.data
+        statusCode: mockResolvedPostValues.status,
+        body: mockResolvedPostValues.data
       });
     });
     test("should return correct statusCode and body on failure", async () => {
       const { url, body } = mockPostRequest();
-      const { sut, mockedAxios: { mockResolvedValues, mockedAxios } } = makeSut();
+      const { sut, mockedAxios: { mockResolvedPostValues, mockedAxios } } = makeSut();
 
       mockedAxios.post.mockRejectedValueOnce({
         response: {
-          status: mockResolvedValues.status,
-          data: mockResolvedValues.data
+          status: mockResolvedPostValues.status,
+          data: mockResolvedPostValues.data
         }
       });
 
       const result = await sut.post({ url, body });
 
       expect(result).toEqual({
-        statusCode: mockResolvedValues.status,
-        body: mockResolvedValues.data
+        statusCode: mockResolvedPostValues.status,
+        body: mockResolvedPostValues.data
       });
     });
   });
 
   describe("Get", () => {
+    test("should call axios with correct values", async () => {
+      const { url } = mockGetRequest();
+      const { sut, mockedAxios: { mockedAxios } } = makeSut();
+      await sut.get({ url });
 
+      expect(mockedAxios.get).toHaveBeenCalledWith(url);
+    });
+
+    // test("should return correct statusCode and body", async () => {
+    //   const { url } = mockGetRequest();
+    //   const { sut, mockedAxios: { mockResolvedGetValues } } = makeSut();
+    //   const result = await sut.get({ url });
+
+    //   expect(result).toEqual({
+    //     statusCode: mockResolvedGetValues.status,
+    //     body: mockResolvedGetValues.data
+    //   });
+    // });
   });
 });
