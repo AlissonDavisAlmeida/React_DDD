@@ -76,5 +76,23 @@ describe("Axios Http Client", () => {
         body: mockResolvedGetValues.data
       });
     });
+    test("should return correct statusCode and body on failure", async () => {
+      const { url } = mockGetRequest();
+      const { sut, mockedAxios: { mockResolvedGetValues, mockedAxios } } = makeSut();
+
+      mockedAxios.get.mockRejectedValueOnce({
+        response: {
+          status: mockResolvedGetValues.status,
+          data: mockResolvedGetValues.data
+        }
+      });
+
+      const result = await sut.get({ url });
+
+      expect(result).toEqual({
+        statusCode: mockResolvedGetValues.status,
+        body: mockResolvedGetValues.data
+      });
+    });
   });
 });
