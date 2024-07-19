@@ -27,8 +27,8 @@ export const mockAxios = (): MockAxios => {
     data: faker.definitions.airline.airline
   };
 
-  mockedAxios.post.mockResolvedValue(mockResolvedPostValues);
-  mockedAxios.get.mockResolvedValue(mockResolvedGetValues);
+  mockedAxios.post.mockClear().mockResolvedValue(mockResolvedPostValues);
+  mockedAxios.get.mockClear().mockResolvedValue(mockResolvedGetValues);
 
   return { mockResolvedPostValues, mockResolvedGetValues, mockedAxios };
 };
