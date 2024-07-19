@@ -1,9 +1,24 @@
 @import "../../styles/colors.scss";
 
-.surveyListWrap {
+@mixin icon-attributes($backGroundColor) {
+    position: absolute;
+    top: -4%;
+    right: -4%;
+    border-radius: 100%;
+    padding: 8px;
+    display: flex;
+    background-color: $backGroundColor;
+    box-shadow: 1px 2px 7px -1px $black;
+}
+
+%flexColumn{
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+}
+
+.surveyListWrap {
+    @extend %flexColumn;
+    justify-content: space-between; 
     min-height: 100vh;
     background-color: $disabled-background;
 
@@ -27,8 +42,7 @@
 
             .logoutWrap {
                 align-self: center;
-                display: flex;
-                flex-direction: column;
+                @extend %flexColumn;
                 justify-content: center;
                 align-items: flex-end;
                 color: $white;
@@ -49,8 +63,7 @@
         }
     }
     .contentWrap {
-        display: flex;
-        flex-direction: column;
+        @extend %flexColumn;
         align-self: center;
         width: 100%;
         max-width: 800px;
@@ -76,8 +89,7 @@
             li {
                 height: 250px;
                 background-color: $white;
-                display: flex;
-                flex-direction: column;
+                @extend %flexColumn;
                 justify-content: space-between;
                 border-radius: 8px;
                 flex-basis: 48%;
@@ -101,10 +113,18 @@
                     background-size:
                         45px 100%,
                         100% 100%;
+                    position: relative;
+
+                    .iconWrapper {
+                        @include icon-attributes($valid-color);
+                        
+                        &_invalid {
+                            @include icon-attributes($invalid-color);
+                        }
+                    }
 
                     time {
-                        display: flex;
-                        flex-direction: column;
+                        @extend %flexColumn;
                         justify-content: center;
                         background-color: $primary-color-light;
                         color: $white;
