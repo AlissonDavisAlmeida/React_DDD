@@ -1,25 +1,16 @@
 import { type FC } from "react";
 import styles from "./survey-list-styles.scss";
-import { Footer, LogoTip } from "@/presentation/components";
+import { Footer } from "@/presentation/components";
+import { Header } from "@/presentation/components/header";
 
 interface SurveyListProps {
-
+  title?: string
 }
 
-export const SurveyList: FC<SurveyListProps> = ({ }) => {
+export const SurveyList: FC<SurveyListProps> = () => {
   return (
 	<div className={styles.surveyListWrap} >
-		<header className={styles.headerWrap}>
-			<div className={styles.headerContent}>
-				<LogoTip />
-
-				<div className={styles.logoutWrap}>
-					<span>Alisson</span>
-
-					<a href="#">Sair</a>
-				</div>
-			</div>
-		</header>
+		<Header />
 
 		<main className={styles.contentWrap}>
 			<h2>Enquetes</h2>

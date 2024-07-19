@@ -11,57 +11,18 @@
     box-shadow: 1px 2px 7px -1px $black;
 }
 
-%flexColumn{
+%flexColumn {
     display: flex;
     flex-direction: column;
 }
 
 .surveyListWrap {
     @extend %flexColumn;
-    justify-content: space-between; 
+    justify-content: space-between;
     min-height: 100vh;
     background-color: $disabled-background;
 
-    .headerWrap {
-        display: flex;
-        justify-content: center;
-        background-color: $primary-color;
-        border-top: 40px solid $primary-color-dark;
 
-        .headerContent {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            max-width: 800px;
-            flex: 1;
-            padding: 24px 40px;
-            img {
-                width: 60px;
-                align-self: center;
-            }
-
-            .logoutWrap {
-                align-self: center;
-                @extend %flexColumn;
-                justify-content: center;
-                align-items: flex-end;
-                color: $white;
-
-                span {
-                    font-size: 1.6rem;
-                    margin-bottom: 0.8rem;
-                }
-                a {
-                    color: $white;
-                    text-decoration: none;
-
-                    &:hover {
-                        text-decoration: underline;
-                    }
-                }
-            }
-        }
-    }
     .contentWrap {
         @extend %flexColumn;
         align-self: center;
@@ -117,7 +78,7 @@
 
                     .iconWrapper {
                         @include icon-attributes($valid-color);
-                        
+
                         &_invalid {
                             @include icon-attributes($invalid-color);
                         }

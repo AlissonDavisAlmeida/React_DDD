@@ -1,0 +1,47 @@
+@import "../../styles/colors.scss";
+
+%flexColumn {
+    display: flex;
+    flex-direction: column;
+}
+
+.headerWrap {
+    display: flex;
+    justify-content: center;
+    background-color: $primary-color;
+    border-top: 40px solid $primary-color-dark;
+
+    .headerContent {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        max-width: 800px;
+        flex: 1;
+        padding: 24px 40px;
+        img {
+            width: 60px;
+            align-self: center;
+        }
+
+        .logoutWrap {
+            align-self: center;
+            @extend %flexColumn;
+            justify-content: center;
+            align-items: flex-end;
+            color: $white;
+
+            span {
+                font-size: 1.6rem;
+                margin-bottom: 0.8rem;
+            }
+            a {
+                color: $white;
+                text-decoration: none;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+}
