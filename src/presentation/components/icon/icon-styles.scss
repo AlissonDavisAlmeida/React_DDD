@@ -1,0 +1,19 @@
+@import "../../styles/colors.scss";
+
+@mixin icon-attributes($backGroundColor) {
+    border-radius: 100%;
+    padding: 8px;
+    display: flex;
+    background-color: $backGroundColor;
+    box-shadow: 1px 2px 7px -1px $black;
+}
+
+.iconWrapper {
+    &.iconThumbUp {
+        @include icon-attributes($valid-color);
+    }
+
+    &.iconThumbDown {
+        @include icon-attributes($invalid-color);
+    }
+}

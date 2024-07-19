@@ -1,16 +1,5 @@
 @import "../../styles/colors.scss";
 
-@mixin icon-attributes($backGroundColor) {
-    position: absolute;
-    top: -4%;
-    right: -4%;
-    border-radius: 100%;
-    padding: 8px;
-    display: flex;
-    background-color: $backGroundColor;
-    box-shadow: 1px 2px 7px -1px $black;
-}
-
 %flexColumn {
     display: flex;
     flex-direction: column;
@@ -21,7 +10,6 @@
     justify-content: space-between;
     min-height: 100vh;
     background-color: $disabled-background;
-
 
     .contentWrap {
         @extend %flexColumn;
@@ -48,7 +36,7 @@
             padding-left: 0;
 
             li {
-                height: 250px;
+                min-height: 250px;
                 background-color: $white;
                 @extend %flexColumn;
                 justify-content: space-between;
@@ -77,11 +65,9 @@
                     position: relative;
 
                     .iconWrapper {
-                        @include icon-attributes($valid-color);
-
-                        &_invalid {
-                            @include icon-attributes($invalid-color);
-                        }
+                        position: absolute;
+                        top: -4%;
+                        right: -4%;
                     }
 
                     time {
@@ -128,6 +114,20 @@
                     &:hover {
                         background-color: $primary-color-dark;
                     }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .surveyListWrap {
+        .contentWrap {
+            width: max-content;
+            ul {
+                flex-direction: column;
+                li {
+                    flex-basis: 100%;
                 }
             }
         }
