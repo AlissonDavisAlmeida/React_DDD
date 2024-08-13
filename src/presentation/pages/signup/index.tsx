@@ -84,7 +84,7 @@ export const Signup: FC<SignupProps> = ({ validation, addAccount, saveAccessToke
       });
 
       if (account) {
-        await saveAccessToken?.save(account.accessToken);
+        await saveAccessToken?.save(account.token);
       }
 
       navigate("/", {

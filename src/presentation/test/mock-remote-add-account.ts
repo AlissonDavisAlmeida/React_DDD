@@ -6,7 +6,7 @@ export class RemoteAddAccountMock implements AddAccount {
   accessToken: string | undefined;
   async add (params: AddAccountParams): Promise<AccountModel | undefined> {
     const accountModel = mockAccountModel();
-    this.accessToken = accountModel.accessToken;
+    this.accessToken = accountModel.token;
     return await Promise.resolve(accountModel);
   }
 }

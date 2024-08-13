@@ -66,9 +66,8 @@ export const Login: FC<LoginProps> = ({ validation, authentication, saveAccessTo
         email: state.inputValue?.email as string,
         password: state.inputValue?.password as string
       });
-
       if (account) {
-        await saveAccessToken?.save(account.accessToken);
+        await saveAccessToken?.save(account.token);
       }
 
       navigate("/", {

@@ -40,6 +40,10 @@ export const SurveyList: FC<SurveyListProps> = () => {
 
 				<li />
 
+				<li />
+
+				<li />
+
 				{/* <li role="listitem">
 					<div className={styles.surveyContent}>
 

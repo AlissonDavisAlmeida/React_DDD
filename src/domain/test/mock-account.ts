@@ -12,6 +12,7 @@ export const mockAuthentication = (): AuthenticationParams => {
 
 export const mockAccountModel = (): AccountModel => {
   return {
-    accessToken: randomUUID()
+    token: randomUUID(),
+    name: faker.person.firstName()
   };
 };

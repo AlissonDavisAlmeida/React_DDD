@@ -1,3 +1,4 @@
 export interface AccountModel {
-  accessToken: string
+  token: string
+  name: string
 }

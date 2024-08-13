@@ -231,7 +231,7 @@ describe("Login Component", () => {
     const submitButton = sut.getByTestId("submit") as HTMLButtonElement;
     await user.click(submitButton);
 
-    expect(saveAccessTokenMock.accessToken).toBe(authenticationSpy.account.accessToken);
+    expect(saveAccessTokenMock.accessToken).toBe(authenticationSpy.account.token);
     expect(sut.getByTestId("location-display").textContent).toBe("/");
   });
 

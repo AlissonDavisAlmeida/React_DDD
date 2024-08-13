@@ -19,7 +19,7 @@ export class RemoteAuthentication implements Authentication {
     if (!httpResponse.body) {
       throw new Error("Unexpected error");
     }
-
+    console.log(httpResponse.body);
     return await Promise.resolve(httpResponse.body);
   }
 }

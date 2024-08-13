@@ -17,7 +17,8 @@ interface SutTypes {
 const makeSut = (url: string = faker.internet.url()): SutTypes => {
   const httpPostClient = new HttpPostClientSpy<AuthenticationParams, AccountModel>();
   httpPostClient.response.body = {
-    accessToken: randomUUID()
+    token: randomUUID(),
+    name: faker.person.firstName()
   };
   const sut = new RemoteAddAccountUseCase(url, httpPostClient);
 
