@@ -2,7 +2,7 @@ import { LocalSaveCurrentAccount } from "@/data/useCases/local-save-current-acco
 import { type SaveCurrentAccount } from "@/domain/usecases";
 import { makeLocalStorageAdapter } from "@/main/factories/cache/local-storage-adapter-factory";
 
-export const makeSaveAccessToken = (): SaveCurrentAccount => {
+export const makeSaveCurrentAccount = (): SaveCurrentAccount => {
   const setStorage = makeLocalStorageAdapter();
   const localSaveAccessToken = new LocalSaveCurrentAccount(setStorage);
 

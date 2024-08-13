@@ -7,14 +7,14 @@ import { faker } from "@faker-js/faker/locale/pt_BR";
 import { Routes, Route, MemoryRouter, useLocation } from "react-router-dom";
 import { RemoteAddAccountMock } from "@/presentation/test/mock-remote-add-account";
 import { UnexpectedError } from "@/domain/errors";
-import { SaveAccessTokenMock } from "@/presentation/test/mock-save-access-token";
+import { SaveCurrentAccountMock } from "@/presentation/test/mock-save-current-account";
 
 interface SutTypes {
 
   sut: RenderResult
   validationSpy: ValidationSpy
   addAccountSpy: RemoteAddAccountMock
-  saveAccessTokenMock: SaveAccessTokenMock
+  saveAccessTokenMock: SaveCurrentAccountMock
 }
 
 const LocationDisplay = () => {
@@ -29,7 +29,7 @@ const passwordFake = faker.internet.password();
 const makeSut = (): SutTypes => {
   const validationSpy = new ValidationSpy();
   const addAccountSpy = new RemoteAddAccountMock();
-  const saveAccessTokenMock = new SaveAccessTokenMock();
+  const saveAccessTokenMock = new SaveCurrentAccountMock();
   const errorMessage = faker.word.words();
   validationSpy.errorMessage = errorMessage;
 

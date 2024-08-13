@@ -6,14 +6,14 @@ import { AuthenticationSpy, ValidationSpy } from "@/presentation/test/mock-valid
 import { faker } from "@faker-js/faker/locale/pt_BR";
 import { InvalidCredentialsError } from "@/domain/errors";
 import { Routes, Route, MemoryRouter, useLocation } from "react-router-dom";
-import { SaveAccessTokenMock } from "@/presentation/test/mock-save-access-token";
+import { SaveCurrentAccountMock } from "@/presentation/test/mock-save-current-account";
 
 interface SutTypes {
 
   sut: RenderResult
   validationSpy: ValidationSpy
   authenticationSpy: AuthenticationSpy
-  saveAccessTokenMock: SaveAccessTokenMock
+  saveAccessTokenMock: SaveCurrentAccountMock
 }
 
 const LocationDisplay = () => {
@@ -27,7 +27,7 @@ const passwordFake = faker.internet.password();
 const makeSut = (): SutTypes => {
   const validationSpy = new ValidationSpy();
   const authenticationSpy = new AuthenticationSpy();
-  const saveAccessTokenMock = new SaveAccessTokenMock();
+  const saveAccessTokenMock = new SaveCurrentAccountMock();
   const errorMessage = faker.word.words();
   validationSpy.errorMessage = errorMessage;
 
