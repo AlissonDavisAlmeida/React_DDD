@@ -1,9 +1,11 @@
 import { type SetStorage } from "@/data/protocols/cache/set-storage";
-import { type SaveAccessToken } from "@/domain/usecases";
+import { type AccountModel } from "@/domain/models";
+import { type SaveCurrentAccount } from "@/domain/usecases";
 
-export class LocalSaveAccessToken implements SaveAccessToken {
+export class LocalSaveAccessToken implements SaveCurrentAccount {
   constructor (private readonly setStorage: SetStorage) {}
-  async save (accessToken: string): Promise<void> {
-    await this.setStorage.set("accessToken", accessToken);
+  async save (accountModel: AccountModel): Promise<void> {
+    const accountModelString = JSON.stringify(accountModel);
+    await this.setStorage.set("accountModel", accountModelString);
   }
 }

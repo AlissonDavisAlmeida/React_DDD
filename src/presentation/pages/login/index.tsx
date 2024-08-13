@@ -3,13 +3,13 @@ import styles from "./login-styles.scss";
 import { LoginHeader, Footer, Input, StatusForm } from "@/presentation/components";
 import { FormContextLogin, type FormContextLoginProps } from "@/presentation/context/login/form/form-context-login";
 import { type Validation } from "@/presentation/protocols/validation";
-import { type Authentication, type SaveAccessToken } from "@/domain/usecases";
+import { type Authentication, type SaveCurrentAccount } from "@/domain/usecases";
 import { Link, useNavigate } from "react-router-dom";
 
 interface LoginProps {
   validation?: Validation
   authentication?: Authentication
-  saveAccessToken?: SaveAccessToken
+  saveAccessToken?: SaveCurrentAccount
 }
 
 export const Login: FC<LoginProps> = ({ validation, authentication, saveAccessToken }) => {
@@ -67,7 +67,7 @@ export const Login: FC<LoginProps> = ({ validation, authentication, saveAccessTo
         password: state.inputValue?.password as string
       });
       if (account) {
-        await saveAccessToken?.save(account.token);
+        await saveAccessToken?.save(account);
       }
 
       navigate("/", {

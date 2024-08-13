@@ -21,17 +21,18 @@ describe("LocalSaveAccessToken", () => {
   test("should call SetStorage with correct value", async () => {
     const { sut, setStorageMock } = makeSut();
     const uuid = faker.string.uuid();
-    await sut.save(uuid);
+    const accountModel = { token: uuid, name: faker.person.firstName() };
+    await sut.save(accountModel);
 
-    expect(setStorageMock.key).toBe("accessToken");
-    expect(setStorageMock.value).toBe(uuid);
+    expect(setStorageMock.key).toBe("accountModel");
+    expect(setStorageMock.value).toEqual(JSON.stringify(accountModel));
   });
 
   test("should throw if SetStorage throws", async () => {
     const { sut, setStorageMock } = makeSut();
     jest.spyOn(setStorageMock, "set").mockRejectedValueOnce(new Error());
 
-    const promise = sut.save(faker.string.uuid());
+    const promise = sut.save({ token: faker.string.uuid(), name: faker.person.firstName() });
 
     await expect(promise).rejects.toThrow(new Error());
   });

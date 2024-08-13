@@ -4,12 +4,12 @@ import { LoginHeader, Footer, Input, StatusForm } from "@/presentation/component
 import { FormContextSignup, type FormContextSignupProps } from "@/presentation/context/signup/form/form-context-signup";
 import { type Validation } from "@/presentation/protocols/validation";
 import { Link, useNavigate } from "react-router-dom";
-import { type SaveAccessToken, type AddAccount } from "@/domain/usecases";
+import { type SaveCurrentAccount, type AddAccount } from "@/domain/usecases";
 
 interface SignupProps {
   validation?: Validation
   addAccount?: AddAccount
-  saveAccessToken?: SaveAccessToken
+  saveAccessToken?: SaveCurrentAccount
 }
 
 export const Signup: FC<SignupProps> = ({ validation, addAccount, saveAccessToken }) => {
@@ -84,7 +84,7 @@ export const Signup: FC<SignupProps> = ({ validation, addAccount, saveAccessToke
       });
 
       if (account) {
-        await saveAccessToken?.save(account.token);
+        await saveAccessToken?.save(account);
       }
 
       navigate("/", {
