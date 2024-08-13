@@ -1,15 +1,15 @@
 import { faker } from "@faker-js/faker/locale/pt_BR";
-import { LocalSaveAccessToken } from "./local-save-access-token";
 import { SetStorageMock } from "@/data/test";
+import { LocalSaveCurrentAccount } from "./local-save-current-account";
 
 interface SutTypes {
-  sut: LocalSaveAccessToken
+  sut: LocalSaveCurrentAccount
   setStorageMock: SetStorageMock
 }
 
 const makeSut = (): SutTypes => {
   const setStorageMock = new SetStorageMock();
-  const sut = new LocalSaveAccessToken(setStorageMock);
+  const sut = new LocalSaveCurrentAccount(setStorageMock);
 
   return {
     sut,
