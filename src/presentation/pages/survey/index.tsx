@@ -38,7 +38,9 @@ export const SurveyList: FC<SurveyListProps> = () => {
 					<footer>Ver resultado</footer>
 				</li>
 
-				<li role="listitem">
+				<li />
+
+				{/* <li role="listitem">
 					<div className={styles.surveyContent}>
 
 						<time>
@@ -181,7 +183,7 @@ export const SurveyList: FC<SurveyListProps> = () => {
 					</div>
 
 					<footer>Ver resultado</footer>
-				</li>
+				</li> */}
 			</ul>
 		</main>
 
