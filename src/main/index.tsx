@@ -1,4 +1,4 @@
-import { router } from "@/presentation/components/router";
+import { router } from "@/main/router";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
