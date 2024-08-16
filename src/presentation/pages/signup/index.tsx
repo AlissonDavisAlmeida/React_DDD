@@ -1,18 +1,18 @@
-import React, { type FC, useState, useEffect } from "react";
+import React, { type FC, useState, useEffect, useContext } from "react";
 import styles from "./signup-styles.scss";
 import { LoginHeader, Footer, Input, StatusForm } from "@/presentation/components";
 import { FormContextSignup, type FormContextSignupProps } from "@/presentation/context/signup/form/form-context-signup";
 import { type Validation } from "@/presentation/protocols/validation";
 import { Link, useNavigate } from "react-router-dom";
-import { type SaveCurrentAccount, type AddAccount } from "@/domain/usecases";
+import { type AddAccount } from "@/domain/usecases";
+import { ApiContext } from "@/presentation/context/api/api-context";
 
 interface SignupProps {
   validation?: Validation
   addAccount?: AddAccount
-  saveAccessToken?: SaveCurrentAccount
 }
 
-export const Signup: FC<SignupProps> = ({ validation, addAccount, saveAccessToken }) => {
+export const Signup: FC<SignupProps> = ({ validation, addAccount }) => {
   const [state, setState] = useState<FormContextSignupProps>({
     isLoading: false,
     errorMessage: "",
@@ -31,6 +31,7 @@ export const Signup: FC<SignupProps> = ({ validation, addAccount, saveAccessToke
   });
 
   const navigate = useNavigate();
+  const { setCurrentAccount } = useContext(ApiContext);
 
   useEffect(() => {
     if (state.inputValue) {
@@ -84,7 +85,7 @@ export const Signup: FC<SignupProps> = ({ validation, addAccount, saveAccessToke
       });
 
       if (account) {
-        await saveAccessToken?.save(account);
+        setCurrentAccount(account);
       }
 
       navigate("/", {

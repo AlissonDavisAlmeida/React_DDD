@@ -4,8 +4,7 @@ import { type SaveCurrentAccount } from "@/domain/usecases";
 
 export class LocalSaveCurrentAccount implements SaveCurrentAccount {
   constructor (private readonly setStorage: SetStorage) {}
-  async save (accountModel: AccountModel): Promise<void> {
-    const accountModelString = JSON.stringify(accountModel);
-    this.setStorage.set("accountModel", accountModelString);
+  save (accountModel: AccountModel): void {
+    this.setStorage.set("accountModel", accountModel);
   }
 }

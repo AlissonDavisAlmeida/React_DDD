@@ -6,14 +6,15 @@ import { AuthenticationSpy, ValidationSpy } from "@/presentation/test/mock-valid
 import { faker } from "@faker-js/faker/locale/pt_BR";
 import { InvalidCredentialsError } from "@/domain/errors";
 import { Routes, Route, MemoryRouter, useLocation } from "react-router-dom";
-import { SaveCurrentAccountMock } from "@/presentation/test/mock-save-current-account";
+import { type AccountModel } from "@/domain/models";
+import { ApiContext } from "@/presentation/context/api/api-context";
 
 interface SutTypes {
 
   sut: RenderResult
   validationSpy: ValidationSpy
   authenticationSpy: AuthenticationSpy
-  saveAccessTokenMock: SaveCurrentAccountMock
+  saveCurrentAccountMock: (account: AccountModel) => void
 }
 
 const LocationDisplay = () => {
@@ -27,38 +28,39 @@ const passwordFake = faker.internet.password();
 const makeSut = (): SutTypes => {
   const validationSpy = new ValidationSpy();
   const authenticationSpy = new AuthenticationSpy();
-  const saveAccessTokenMock = new SaveCurrentAccountMock();
+  const saveCurrentAccountMock = jest.fn();
   const errorMessage = faker.word.words();
   validationSpy.errorMessage = errorMessage;
 
   const sut = render(<>
-	<MemoryRouter
-		initialEntries={["/login", "/"]}
-		initialIndex={0}
-	>
-		<Routes>
-			<Route
-				path='/'
-				element={<div data-testid='home-page'>home</div>}
-			/>
+	<ApiContext.Provider value={{ setCurrentAccount: saveCurrentAccountMock }}>
+		<MemoryRouter
+			initialEntries={["/login", "/"]}
+			initialIndex={0}
+		>
+			<Routes>
+				<Route
+					path='/'
+					element={<div data-testid='home-page'>home</div>}
+				/>
 
-			<Route
-				path='/login'
-				element={<Login
-					validation={validationSpy}
-					authentication={authenticationSpy}
-					saveAccessToken={saveAccessTokenMock}
-				         />}
-			/>
+				<Route
+					path='/login'
+					element={<Login
+						validation={validationSpy}
+						authentication={authenticationSpy}
+					         />}
+				/>
 
-			<Route
-				path='/signup'
-				element={<div data-testid='signup-page'>signup</div>}
-			/>
-		</Routes>
+				<Route
+					path='/signup'
+					element={<div data-testid='signup-page'>signup</div>}
+				/>
+			</Routes>
 
-		<LocationDisplay />
-	</MemoryRouter>
+			<LocationDisplay />
+		</MemoryRouter>
+	</ApiContext.Provider>
 
   </>
 
@@ -68,7 +70,7 @@ const makeSut = (): SutTypes => {
     sut,
     validationSpy,
     authenticationSpy,
-    saveAccessTokenMock
+    saveCurrentAccountMock
   };
 };
 
@@ -225,13 +227,13 @@ describe("Login Component", () => {
   });
 
   test("should call SaveAccessToken on success", async () => {
-    const { sut, validationSpy, authenticationSpy, saveAccessTokenMock } = makeSut();
+    const { sut, validationSpy, authenticationSpy, saveCurrentAccountMock } = makeSut();
     fillFields(sut, validationSpy);
 
     const submitButton = sut.getByTestId("submit") as HTMLButtonElement;
     await user.click(submitButton);
 
-    expect(saveAccessTokenMock.accessToken).toBe(authenticationSpy.account.token);
+    expect(saveCurrentAccountMock).toHaveBeenCalledWith(authenticationSpy.account);
     expect(sut.getByTestId("location-display").textContent).toBe("/");
   });
 
@@ -243,23 +245,5 @@ describe("Login Component", () => {
 
     expect(sut.getByTestId("signup-page")).toBeTruthy();
     expect(sut.getByTestId("location-display").textContent).toBe("/signup");
-  });
-
-  test("should present error if SaveAccessToken fails", async () => {
-    const { sut, saveAccessTokenMock, validationSpy } = makeSut();
-    fillFields(sut, validationSpy);
-    const error = new Error(faker.lorem.sentence());
-    jest.spyOn(saveAccessTokenMock, "save").mockRejectedValueOnce(error);
-
-    const submitButton = sut.getByTestId("submit") as HTMLButtonElement;
-    await user.click(submitButton);
-
-    await waitFor(() => sut.getByTestId("error-wrap"));
-
-    const errorWrap = sut.getByTestId("error-wrap");
-    expect(errorWrap.childElementCount).toBe(1);
-
-    const mainError = sut.getByTestId("main-error");
-    expect(mainError.textContent).toBe(error.message);
   });
 });

@@ -4,8 +4,8 @@ export class SetStorageMock implements SetStorage {
   key: string = "";
   value: string = "";
 
-  set (key: string, value: string): void {
+  set (key: string, value: object): void {
     this.key = key;
-    this.value = value;
+    this.value = JSON.stringify(value);
   }
 }

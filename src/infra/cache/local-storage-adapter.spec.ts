@@ -12,7 +12,9 @@ describe("LocalStorageAdapter", () => {
 
   test("should call localStorage with correct values", async () => {
     const sut = makeSut();
-    sut.set("any_key", "any_value");
-    expect(localStorage.setItem).toHaveBeenCalledWith("any_key", "any_value");
+    const value = "{\"value\":\"any_value\"}";
+    const valueParsed = JSON.parse(value);
+    sut.set("any_key", valueParsed);
+    expect(localStorage.setItem).toHaveBeenCalledWith("any_key", value);
   });
 });

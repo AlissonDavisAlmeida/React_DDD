@@ -39,7 +39,6 @@ const config: Config = {
     "/dist/"
   ],
   setupFiles:['<rootDir>/setupTests.ts'],
-  
 };
 
 export default config;

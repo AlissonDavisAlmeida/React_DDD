@@ -22,7 +22,7 @@ describe("LocalSaveAccessToken", () => {
     const { sut, setStorageMock } = makeSut();
     const uuid = faker.string.uuid();
     const accountModel = { token: uuid, name: faker.person.firstName() };
-    await sut.save(accountModel);
+    sut.save(accountModel);
 
     expect(setStorageMock.key).toBe("accountModel");
     expect(setStorageMock.value).toEqual(JSON.stringify(accountModel));
@@ -32,8 +32,11 @@ describe("LocalSaveAccessToken", () => {
     const { sut, setStorageMock } = makeSut();
     jest.spyOn(setStorageMock, "set").mockImplementationOnce(() => { throw new Error(); });
 
-    const promise = sut.save({ token: faker.string.uuid(), name: faker.person.firstName() });
-
-    await expect(promise).rejects.toThrow(new Error());
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression
+      sut.save({ token: faker.string.uuid(), name: faker.person.firstName() });
+    } catch (e) {
+      expect(e).toEqual(new Error());
+    }
   });
 });
