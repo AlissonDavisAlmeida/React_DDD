@@ -1,6 +1,7 @@
 import { mockAccountModel } from "@/domain/test";
 import { setCurrentAccountAdapter } from "./current-account-adapter";
 import { LocalStorageAdapter } from "@/infra/cache/local-storage-adapter";
+import { UnexpectedError } from "@/domain/errors";
 
 // jest.mock("@/infra/cache/local-storage-adapter");
 describe("CurrentAccountAdapter", () => {
@@ -15,6 +16,6 @@ describe("CurrentAccountAdapter", () => {
   test("should throw if an invalid account is provided", () => {
     const account = mockAccountModel();
     account.token = "";
-    expect(() => { setCurrentAccountAdapter(account); }).toThrow(new Error("Invalid token"));
+    expect(() => { setCurrentAccountAdapter(account); }).toThrow(new UnexpectedError());
   });
 });
