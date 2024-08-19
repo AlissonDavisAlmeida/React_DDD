@@ -29,11 +29,12 @@ const makeSut = (): SutTypes => {
   const validationSpy = new ValidationSpy();
   const authenticationSpy = new AuthenticationSpy();
   const saveCurrentAccountMock = jest.fn();
+  const getCurrentAccountMock = jest.fn();
   const errorMessage = faker.word.words();
   validationSpy.errorMessage = errorMessage;
 
   const sut = render(<>
-	<ApiContext.Provider value={{ setCurrentAccount: saveCurrentAccountMock }}>
+	<ApiContext.Provider value={{ setCurrentAccount: saveCurrentAccountMock, getCurrentAccount: getCurrentAccountMock }}>
 		<MemoryRouter
 			initialEntries={["/login", "/"]}
 			initialIndex={0}

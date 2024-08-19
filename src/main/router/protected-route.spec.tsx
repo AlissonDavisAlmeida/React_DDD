@@ -1,19 +1,18 @@
 import React from "react";
-import { type AccountModel } from "@/domain/models";
 import { ApiContext } from "@/presentation/context/api/api-context";
 import { render, type RenderResult } from "@testing-library/react";
-import { createMemoryRouter, RouterProvider, useLocation } from "react-router-dom";
+import { createMemoryRouter, RouterProvider } from "react-router-dom";
 import { ProtectedRoute } from "./protected-route";
+import { mockAccountModel } from "@/domain/test";
 
 interface SutTypes {
 
   sut: RenderResult
-  saveCurrentAccountMock: (account: AccountModel) => void
 }
 
-const makeSut = (): SutTypes => {
+const makeSut = (account = mockAccountModel()): SutTypes => {
   const saveCurrentAccountMock = jest.fn();
-  const getCurrentAccountMock = jest.fn();
+  const getCurrentAccountMock = () => account;
   const routes = [
     {
 
@@ -22,7 +21,7 @@ const makeSut = (): SutTypes => {
         {
           path: "/surveys",
           element: <>
-	<div>SurveyList</div>
+	<div data-testid="survey-list">SurveyList</div>
 
                     </>
         }
@@ -49,14 +48,19 @@ const makeSut = (): SutTypes => {
     </ApiContext.Provider>);
 
   return {
-    sut,
-    saveCurrentAccountMock
+    sut
   };
 };
 
 describe("ProtectedRoute", () => {
   test("should redirect to /login if token is empty", () => {
-    const { sut } = makeSut();
+    const { sut } = makeSut(null as any);
     expect(sut.getByTestId("login")).toBeTruthy();
+  });
+
+  test("should render current component if token is not empty", () => {
+    const { sut } = makeSut();
+
+    expect(sut.getByTestId("survey-list")).toBeTruthy();
   });
 });
