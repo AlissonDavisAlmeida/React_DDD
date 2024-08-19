@@ -1,7 +1,7 @@
 import { LocalStorageAdapter } from "@/infra/cache/local-storage-adapter";
 
 export const makeLocalStorageAdapter = () => {
-  const setStorage = new LocalStorageAdapter();
+  const storage = new LocalStorageAdapter();
 
-  return setStorage;
+  return storage;
 };
