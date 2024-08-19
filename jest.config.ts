@@ -38,7 +38,7 @@ const config: Config = {
     "/node_modules/",
     "/dist/"
   ],
-  setupFiles:['<rootDir>/setupTests.ts'],
+  setupFiles:['<rootDir>/setupTests.ts', 'whatwg-fetch'],
 };
 
 export default config;
