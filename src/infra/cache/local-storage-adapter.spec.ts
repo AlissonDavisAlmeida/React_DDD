@@ -23,9 +23,9 @@ describe("LocalStorageAdapter", () => {
   test("should call localStorage.getItem with correct value", async () => {
     const sut = makeSut();
     const value = "account";
-    jest.spyOn(localStorage, "getItem").mockReturnValueOnce(JSON.stringify(fakeAccount));
+    const getItemSpy = jest.spyOn(localStorage, "getItem").mockReturnValueOnce(JSON.stringify(fakeAccount));
     const obj = sut.get(value);
-    expect(localStorage.getItem).toHaveBeenCalledWith(value);
+    expect(getItemSpy).toHaveBeenCalledWith(value);
     expect(obj).toEqual(fakeAccount);
   });
 });
