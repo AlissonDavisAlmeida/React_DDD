@@ -1,4 +1,3 @@
-import React from "react";
 import { Login } from ".";
 import { render, fireEvent, waitFor, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -92,24 +91,24 @@ describe("Login Component", () => {
     const submitButton = await screen.findByTestId("submit") as HTMLButtonElement;
 
     expect(errorWrap.childElementCount).toBe(0);
-    expect(submitButton.disabled).toBeTruthy();
+    expect(submitButton).toHaveAttribute("disabled");
 
     const inputStatusLabelEmail = await screen.findByTestId("email-status");
-    expect(inputStatusLabelEmail.title).toBe(validationSpy.errorMessage);
-    expect(inputStatusLabelEmail.textContent).toBe("🟠");
+    expect(inputStatusLabelEmail).toHaveAttribute("title", validationSpy.errorMessage);
+    expect(inputStatusLabelEmail).toHaveTextContent("🟠");
 
     const inputStatusLabelPassword = await screen.findByTestId("password-status");
-    expect(inputStatusLabelPassword.title).toBe(validationSpy.errorMessage);
-    expect(inputStatusLabelPassword.textContent).toBe("🟠");
+    expect(inputStatusLabelPassword).toHaveAttribute("title", validationSpy.errorMessage);
+    expect(inputStatusLabelPassword).toHaveTextContent("🟠");
   });
 
   test("should inputValue starts with empty string", async () => {
     makeSut();
     const emailInput = await screen.findByTestId("email") as HTMLInputElement;
-    expect(emailInput.value).toBe("");
+    expect(emailInput).toHaveValue("");
 
     const passwordInput = await screen.findByTestId("password") as HTMLInputElement;
-    expect(passwordInput.value).toBe("");
+    expect(passwordInput).toHaveValue("");
   });
 
   test("should show emailError if validation fails", () => {
@@ -120,7 +119,7 @@ describe("Login Component", () => {
 
     const emailStatus = screen.getByTestId("email-status");
     expect(emailStatus.title).toBe(validationSpy.errorMessage);
-    expect(emailStatus.textContent).toBe("🟠");
+    expect(emailStatus).toHaveTextContent("🟠");
   });
   test("should show passwordError if validation fails", () => {
     const { validationSpy } = makeSut();

@@ -38,7 +38,8 @@ const config: Config = {
     "/node_modules/",
     "/dist/"
   ],
-  setupFiles:['<rootDir>/setupTests.ts', 'whatwg-fetch'],
+  setupFiles:[ 'whatwg-fetch'],
+  setupFilesAfterEnv: ['<rootDir>/src/main/config/jest-setup.ts'],
 };
 
 export default config;
