@@ -1,6 +1,6 @@
 import React from "react";
 import { Login } from ".";
-import { type RenderResult, render, cleanup, fireEvent, waitFor, screen } from "@testing-library/react";
+import { render, fireEvent, waitFor, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { AuthenticationSpy, ValidationSpy } from "@/presentation/test/mock-validation";
 import { faker } from "@faker-js/faker/locale/pt_BR";
@@ -84,8 +84,6 @@ const fillFields = (validationSpy: ValidationSpy): void => {
 
 describe("Login Component", () => {
   const user = userEvent.setup();
-
-  afterEach(cleanup);
 
   test("should start with initial state", async () => {
     const { validationSpy } = makeSut();

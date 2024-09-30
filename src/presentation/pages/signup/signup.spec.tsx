@@ -1,6 +1,6 @@
 import React from "react";
 import { Signup } from ".";
-import { type RenderResult, render, cleanup, fireEvent, waitFor } from "@testing-library/react";
+import { type RenderResult, render, fireEvent, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ValidationSpy } from "@/presentation/test/mock-validation";
 import { faker } from "@faker-js/faker/locale/pt_BR";
@@ -100,8 +100,6 @@ const testStatusForField = (sut: RenderResult, fieldName: string, validationSpy:
 
 describe("Signup Component", () => {
   const user = userEvent.setup();
-
-  afterEach(cleanup);
 
   test("should start with initial state", async () => {
     const { sut, validationSpy } = makeSut();
